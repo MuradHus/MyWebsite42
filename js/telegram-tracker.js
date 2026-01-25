@@ -1,82 +1,57 @@
-// Telegram Visitor Tracker
-// ملاحظة أمنية: هذا الكود في موقع ساكن، التوكن مشفر بشكل بسيط لكن يمكن فك تشفيره
-// للأمان الكامل، استخدم Cloudflare Worker أو Vercel Function
+// Telegram Visitor Tracker (Supabase Version)
 
 (function() {
-    // تشفير بسيط للتوكن (استبدل القيم بالقيم الحقيقية)
-    const encodedToken = btoa("8574671989:AAHdLXmvhUXwjo0GoS4MirGVEqi-GUAHMTc"); // ضع التوكن هنا
-    const encodedChatId = btoa("8004559160"); // ضع الـ Chat ID هنا
-    
-    // فك التشفير
-    const botToken = atob(encodedToken);
-    const chatId = atob(encodedChatId);
-    
-    // جمع معلومات الزائر
     async function getVisitorInfo() {
+        // ... (نفس كود جلب المعلومات السابق)
         const now = new Date();
         const browserInfo = navigator.userAgent;
         const language = navigator.language;
         const screenRes = `${window.screen.width}x${window.screen.height}`;
-        const currentPage = window.location.href;
         
-        // الحصول على معلومات الموقع الجغرافي (IP و الدولة)
         let locationData = { country: "Unknown", city: "Unknown", ip: "Unknown" };
-        
         try {
             const geoResponse = await fetch('https://ipapi.co/json/');
-            if (geoResponse.ok) {
-                locationData = await geoResponse.json();
-            }
-        } catch (error) {
-            console.error('Failed to get location:', error);
-        }
+            if (geoResponse.ok) locationData = await geoResponse.json();
+        } catch (e) {}
         
-        // تنسيق الرسالة
-        const message = `
-🌐 زائر جديد للموقع!
-
-⏰ الوقت: ${now.toLocaleString('ar-EG', { timeZone: 'Africa/Cairo' })}
+        return `
+🌐 زائر جديد!
+⏰ الوقت: ${now.toLocaleString('ar-EG')}
 🌍 الدولة: ${locationData.country} | ${locationData.city}
-📍 IP: ${locationData.ip}
 💻 المتصفح: ${browserInfo}
-🌐 اللغة: ${language}
 📱 الدقة: ${screenRes}
-🔗 الصفحة: ${currentPage}
         `.trim();
-        
-        return message;
     }
     
-    // إرسال الرسالة إلى تيليجرام
     async function sendToTelegram() {
         try {
+            // جلب التوكن والـ ID من Supabase
+            // يجب إنشاء جدول باسم 'secrets' يحتوي على حقول key و value
+            const { data: secrets, error: secretError } = await _supabase
+                .from('secrets')
+                .select('*');
+
+            if (secretError || !secrets) throw new Error("Could not fetch secrets");
+
+            const botToken = secrets.find(s => s.key === 'TELEGRAM_BOT_TOKEN')?.value;
+            const chatId = secrets.find(s => s.key === 'TELEGRAM_CHAT_ID')?.value;
+
+            if (!botToken || !chatId) return;
+
             const message = await getVisitorInfo();
-            const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
-            
-            const response = await fetch(telegramUrl, {
+            await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: message,
-                    parse_mode: 'HTML'
-                })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: chatId, text: message })
             });
             
-            if (response.ok) {
-                console.log('Visitor notification sent successfully');
-            }
         } catch (error) {
-            console.error('Failed to send notification:', error);
+            console.error('Telegram Tracking Error:', error);
         }
     }
     
-    // تنفيذ الإرسال عند تحميل الصفحة
-    if (document.readyState === 'loading') {
+    // الإرسال في الصفحة الرئيسية فقط (index)
+    if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/' || window.location.pathname.endsWith('/')) {
         document.addEventListener('DOMContentLoaded', sendToTelegram);
-    } else {
-        sendToTelegram();
     }
 })();
