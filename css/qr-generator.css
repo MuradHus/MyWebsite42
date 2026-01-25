@@ -1,0 +1,210 @@
+:root {
+    --bg-color: #1a1a1a;
+    --card-bg: #252525;
+    --accent-color: #d4af37;
+    --text-color: #fff;
+    --border-color: #444;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Cairo', sans-serif;
+    margin: 0;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.header {
+    background: #000;
+    border-bottom: 2px solid var(--accent-color);
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.back-btn {
+    text-decoration: none;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.back-btn:hover { background: var(--accent-color); color: #000; }
+
+.workspace {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 3rem;
+    align-items: start;
+    padding-bottom: 3rem;
+}
+
+/* Controls */
+.controls-panel {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.control-group { margin-bottom: 1.5rem; }
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+/* Radio Group */
+.radio-group {
+    display: flex;
+    gap: 1rem;
+    background: #333;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+.radio-option {
+    flex: 1;
+    position: relative;
+    cursor: pointer;
+}
+
+.radio-option input { position: absolute; opacity: 0; }
+
+.radio-label {
+    display: block;
+    text-align: center;
+    padding: 8px;
+    border-radius: 5px;
+    transition: 0.3s;
+    color: #ccc;
+    font-weight: normal;
+}
+
+.radio-option input:checked + .radio-custom + .radio-label {
+    background: var(--accent-color);
+    color: #000;
+    font-weight: bold;
+}
+
+input[type="text"], select {
+    width: 100%;
+    padding: 10px;
+    background: #333;
+    border: 1px solid #555;
+    color: #fff;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+input[type="text"]:focus { border-color: var(--accent-color); outline: none; }
+
+.color-row {
+    display: flex;
+    gap: 15px;
+}
+
+.color-box {
+    flex: 1;
+    background: #333;
+    padding: 5px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+input[type="color"] {
+    background: none;
+    border: none;
+    width: 40px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.upload-btn {
+    width: 100%;
+    background: transparent;
+    border: 1px dashed var(--accent-color);
+    color: #ccc;
+    padding: 12px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.upload-btn:hover { background: rgba(212, 175, 55, 0.1); color: #fff; }
+
+.file-name {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 5px;
+    text-align: center;
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: var(--accent-color);
+}
+
+/* Preview */
+.preview-panel {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+}
+
+.canvas-wrapper {
+    padding: 20px;
+    background: #fff; /* QR usually needs contrast so white wrapper helps visualize if transparent bg used, though we set bg color */
+    border-radius: 8px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    margin-bottom: 2rem;
+    line-height: 0;
+}
+
+canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+.download-btn {
+    background: var(--accent-color);
+    color: #000;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.download-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+}
+
+@media (max-width: 768px) {
+    .workspace { grid-template-columns: 1fr; }
+}

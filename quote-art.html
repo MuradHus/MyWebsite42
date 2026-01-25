@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فن الاقتباسات - Quote Art</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;700&family=Reem+Kufi:wght@400;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/quote-art.css">
+</head>
+<body class="dark-mode">
+    
+    <header class="header">
+        <div class="container">
+            <a href="designs.html" class="back-btn">🔙 قسم التصميم</a>
+            <h1>فن الاقتباسات</h1>
+        </div>
+    </header>
+
+    <main class="container workspace">
+        
+        <!-- Controls -->
+        <section class="controls-panel">
+            
+            <div class="control-group">
+                <label>نص الاقتباس</label>
+                <textarea id="quoteText" rows="3" placeholder="اكتب اقتباسك هنا...">إنما الأمم الأخلاق ما بقيت...</textarea>
+            </div>
+
+            <div class="control-group">
+                <label>القائل</label>
+                <input type="text" id="quoteAuthor" placeholder="اسم القائل" value="أحمد شوقي">
+            </div>
+
+            <div class="control-group">
+                <label>الخط العربي</label>
+                <select id="fontSelect" style="font-family: 'Cairo', sans-serif;">
+                    <option value="Cairo" style="font-family: 'Cairo', sans-serif;">خط كايرو (Cairo)</option>
+                    <option value="Amiri" style="font-family: 'Amiri', serif;">خط أميري (Amiri)</option>
+                    <option value="Reem Kufi" style="font-family: 'Reem Kufi', sans-serif;">خط ريم كوفي (Kufi)</option>
+                    <option value="Tajawal" style="font-family: 'Tajawal', sans-serif;">خط تجوال (Tajawal)</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>الخلفية</label>
+                <div class="bg-grid">
+                    <button class="bg-btn active" data-type="color" data-val="#000000" style="background: #000;"></button>
+                    <button class="bg-btn" data-type="color" data-val="#FFFFFF" style="background: #fff;"></button>
+                    <button class="bg-btn" data-type="grad" data-val="linear-gradient(45deg, #FF9A9E 0%, #FECFEF 99%, #FECFEF 100%)" style="background: linear-gradient(45deg, #FF9A9E, #FECFEF);"></button>
+                    <button class="bg-btn" data-type="grad" data-val="linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%)" style="background: linear-gradient(120deg, #84fab0, #8fd3f4);"></button>
+                    <button class="bg-btn" data-type="grad" data-val="linear-gradient(to top, #30cfd0 0%, #330867 100%)" style="background: linear-gradient(to top, #30cfd0, #330867);"></button>
+                    <button class="bg-btn" data-type="image" onclick="document.getElementById('bgUpload').click()" style="background: #333; display: flex; align-items: center; justify-content: center;">📁</button>
+                    <input type="file" id="bgUpload" accept="image/*" hidden>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>تنسيق النص</label>
+                <div class="style-row">
+                    <input type="color" id="textColor" value="#ffffff" title="لون النص">
+                    <input type="range" id="fontSize" min="20" max="100" value="40" title="حجم الخط">
+                </div>
+                <div class="style-row" style="margin-top:10px;">
+                     <label style="font-size: 0.8rem; margin:0;">محاذاة:</label>
+                     <button class="align-btn" data-align="right">➡️</button>
+                     <button class="align-btn active" data-align="center">⏺️</button>
+                     <button class="align-btn" data-align="left">⬅️</button>
+                </div>
+            </div>
+
+            <button id="downloadBtn" class="btn-main">⬇️ تحميل (Instagram Post)</button>
+
+        </section>
+
+        <!-- Preview -->
+        <section class="preview-panel">
+            <div class="canvas-wrapper">
+                <canvas id="quoteCanvas"></canvas>
+            </div>
+            <p class="hint">Canvas 1080x1080px (Square)</p>
+        </section>
+
+    </main>
+
+    <script src="js/quote-art.js"></script>
+</body>
+</html>

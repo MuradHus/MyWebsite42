@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استوديو الموك-أب</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/mockup-studio.css">
+</head>
+<body class="dark-mode">
+    
+    <header class="header">
+        <div class="container">
+            <a href="designs.html" class="back-btn">🔙 قسم التصميم</a>
+            <h1>استوديو الموك-أب</h1>
+        </div>
+    </header>
+
+    <main class="container workspace">
+        
+        <!-- Controls -->
+        <section class="controls-panel">
+            
+            <div class="control-group">
+                <h3>1. اختر لقطة الشاشة</h3>
+                <div class="upload-box" onclick="document.getElementById('imgUpload').click()">
+                    <span class="icon">📁</span>
+                    <span>رفع صورة (Screenshot)</span>
+                </div>
+                <input type="file" id="imgUpload" accept="image/*" hidden>
+            </div>
+
+            <div class="control-group">
+                <h3>2. نوع الجهاز والاتجاه</h3>
+                <div class="device-options">
+                    <button class="device-btn active" data-device="iphone">📱 Tel</button>
+                    <button class="device-btn" data-device="laptop">💻 Lap</button>
+                    <button class="device-btn" data-device="browser">🌐 Web</button>
+                </div>
+                
+                <div class="options-row" style="margin-top: 15px; display: flex; gap: 10px;">
+                    <div class="toggle-group">
+                        <label>الاتجاه:</label>
+                        <select id="orientationSelect">
+                            <option value="portrait">عمودي (Portrait)</option>
+                            <option value="landscape">أفقي (Landscape)</option>
+                        </select>
+                    </div>
+                    <div class="toggle-group">
+                        <label>الشكل:</label>
+                        <select id="styleSelect">
+                            <option value="standard">قياسي (Standard)</option>
+                            <option value="boxy">حاد (Boxy)</option>
+                            <option value="minimal">بسيط (Minimal)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <h3>3. الخلفية</h3>
+                <div class="colors-grid">
+                    <div class="color-dot" style="background:#000" data-color="#000"></div>
+                    <div class="color-dot" style="background:#fff" data-color="#fff"></div>
+                    <div class="color-dot" style="background: linear-gradient(135deg, #667eea, #764ba2)" data-color="grad1"></div>
+                    <div class="color-dot" style="background: linear-gradient(135deg, #FF512F, #DD2476)" data-color="grad2"></div>
+                </div>
+                
+                <div class="custom-gradient-box" style="margin-top: 15px; background: #333; padding: 10px; border-radius: 8px;">
+                    <label style="font-size: 0.8rem; margin-bottom: 5px; display:block;">تدرج مخصص:</label>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input type="color" id="bgStart" value="#2a0845">
+                        <span>إلى</span>
+                        <input type="color" id="bgEnd" value="#6441a5">
+                        <button id="applyGradBtn" style="padding: 5px 10px; font-size: 0.8rem; cursor: pointer;">تطبيق</button>
+                    </div>
+                </div>
+            </div>
+
+            <button id="downloadBtn" class="btn-main">⬇️ تحميل التصميم (HD)</button>
+
+        </section>
+
+        <!-- Preview -->
+        <section class="preview-panel">
+            <div class="canvas-wrapper">
+                <canvas id="mockupCanvas"></canvas>
+            </div>
+            <p class="hint">سيتم تعديل أبعاد الصورة تلقائياً لتناسب الجهاز</p>
+        </section>
+
+    </main>
+
+    <script src="js/mockup-studio.js"></script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مُحول الصور الفني - Photo FX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/photo-fx.css">
+</head>
+<body class="dark-mode">
+    
+    <header class="header">
+        <div class="container">
+            <a href="designs.html" class="back-btn">🔙 قسم التصميم</a>
+            <h1>مُحول الصور الفني</h1>
+        </div>
+    </header>
+
+    <main class="container workspace">
+        
+        <!-- Controls Column -->
+        <section class="controls-panel">
+            
+            <div class="upload-section">
+                <button class="btn-main" onclick="document.getElementById('imgUpload').click()">
+                    📁 رفع صورة جديدة
+                </button>
+                <input type="file" id="imgUpload" accept="image/*" hidden>
+            </div>
+
+            <div class="filters-list">
+                
+                <!-- Glitch Control -->
+                <div class="filter-card active" data-filter="glitch">
+                    <div class="filter-header">
+                        <span class="icon">📺</span>
+                        <span>تشويش (Glitch)</span>
+                        <label class="switch">
+                            <input type="checkbox" id="glitchToggle">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="filter-body" id="glitchControls">
+                        <label>الشدة</label>
+                        <input type="range" id="glitchAmount" min="0" max="50" value="10">
+                        <label>إزاحة الألوان</label>
+                        <input type="range" id="glitchOffset" min="0" max="20" value="5">
+                    </div>
+                </div>
+
+                <!-- Pixelate Control -->
+                <div class="filter-card" data-filter="pixelate">
+                    <div class="filter-header">
+                        <span class="icon">👾</span>
+                        <span>بكسلة (Pixelate)</span>
+                        <label class="switch">
+                            <input type="checkbox" id="pixelToggle">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="filter-body" id="pixelControls">
+                        <label>حجم البكسل</label>
+                        <input type="range" id="pixelSize" min="2" max="50" value="10">
+                    </div>
+                </div>
+
+                <!-- Duotone Control -->
+                <div class="filter-card" data-filter="duotone">
+                    <div class="filter-header">
+                        <span class="icon">🌗</span>
+                        <span>ثنائي اللون (Duotone)</span>
+                        <label class="switch">
+                            <input type="checkbox" id="duotoneToggle">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="filter-body" id="duotoneControls">
+                        <div class="color-pair">
+                            <div>
+                                <label>الداكن</label>
+                                <input type="color" id="duotoneC1" value="#1a0b2e">
+                            </div>
+                            <div>
+                                <label>الفاتح</label>
+                                <input type="color" id="duotoneC2" value="#00ffff">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <button id="downloadBtn" class="btn-download">⬇️ حفظ اللوحة الفنية</button>
+
+        </section>
+
+        <!-- Canvas Preview -->
+        <section class="preview-panel">
+            <div id="canvasContainer" class="canvas-container">
+                <canvas id="fxCanvas"></canvas>
+                <div id="loading" class="loading-text">اختر صورة للبدء...</div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="js/photo-fx.js"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دائرة الألوان الاحترافية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/color-wheel.css">
+</head>
+<body class="dark-mode">
+    
+    <header class="header">
+        <div class="container">
+            <a href="designs.html" class="back-btn">🔙 قسم التصميم</a>
+            <h1>دائرة الألوان الذكية</h1>
+        </div>
+    </header>
+
+    <main class="container workspace">
+        
+        <div class="left-column">
+            <!-- Wheel Section -->
+            <section class="wheel-panel">
+                <div class="canvas-wrapper">
+                    <canvas id="colorCanvas" width="350" height="350"></canvas>
+                    <div class="cursor-point" id="cursorPoint"></div>
+                </div>
+                <p class="hint">حرك الماوس أو المس الدائرة لاختيار اللون</p>
+            </section>
+
+            <!-- Image Analysis Section -->
+            <section class="analysis-panel">
+                <h3>تحليل صورة</h3>
+                <div class="upload-wrapper">
+                    <button class="btn-upload" onclick="document.getElementById('imgUpload').click()">📤 رفع صورة</button>
+                    <input type="file" id="imgUpload" accept="image/*" hidden>
+                </div>
+                
+                <div class="img-canvas-wrapper" style="display:none;" id="imgWrapper">
+                    <canvas id="imgCanvas"></canvas>
+                    <p class="small-hint">اضغط لتثبيت اللون</p>
+                    <!-- Floating Preview -->
+                    <div id="hoverPreview" class="hover-preview"></div>
+                </div>
+
+                <!-- Palette moved to Info Panel -->
+            </section>
+        </div>
+
+        <!-- Info Section -->
+        <section class="info-panel">
+            <h3 style="margin-bottom: 10px; color:#ddd;">معاينة اللون</h3>
+            <div class="preview-box" id="colorPreview" style="background: #ff0000;">
+                <span id="previewText">#FF0000</span>
+            </div>
+
+            <div class="values-grid">
+                
+                <div class="value-item">
+                    <label>HEX</label>
+                    <div class="input-copy">
+                        <input type="text" id="valHex" value="#FF0000" readonly>
+                        <button onclick="copyToClipboard('valHex')">📋</button>
+                    </div>
+                </div>
+
+                <div class="value-item">
+                    <label>RGB</label>
+                    <div class="input-copy">
+                        <input type="text" id="valRgb" value="rgb(255, 0, 0)" readonly>
+                        <button onclick="copyToClipboard('valRgb')">📋</button>
+                    </div>
+                </div>
+
+                <div class="value-item">
+                    <label>HSL</label>
+                    <div class="input-copy">
+                        <input type="text" id="valHsl" value="hsl(0, 100%, 50%)" readonly>
+                        <button onclick="copyToClipboard('valHsl')">📋</button>
+                    </div>
+                </div>
+
+                <div class="value-item">
+                    <label>CMYK</label>
+                    <div class="input-copy">
+                        <input type="text" id="valCmyk" value="cmyk(0%, 100%, 100%, 0%)" readonly>
+                        <button onclick="copyToClipboard('valCmyk')">📋</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="harmonies" id="harmonies">
+                <h3>اقتراحات متناسقة</h3>
+                <div class="swatches" id="swatches">
+                    <!-- Javascript will inject swatches -->
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="js/color-wheel.js"></script>
+</body>
+</html>

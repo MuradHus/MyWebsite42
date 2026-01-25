@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معرض الصور</title>
+    <!-- Google Fonts: Cairo -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Specific override for this page if needed */
+    </style>
+</head>
+<body class="photos-page">
+    
+    <!-- Fixed Navigation -->
+    <a href="index.html" class="back-btn fixed-nav">🏠 الرئيسية</a>
+
+    <!-- Right Sidebar -->
+    <aside class="sidebar">
+        <!-- Language Settings -->
+        <div class="sidebar-section">
+            <h3 data-tooltip-ar="اللغة" data-tooltip-en="Language">
+                <i class="fa-solid fa-earth-americas"></i>
+            </h3>
+            <div class="lang-options">
+                <button onclick="setLanguage('ar')" class="lang-btn" 
+                        data-tooltip-ar="العربية" data-tooltip-en="Arabic">
+                    ؏
+                </button>
+                <button onclick="setLanguage('en')" class="lang-btn" 
+                        data-tooltip-ar="الإنجليزية" data-tooltip-en="English">
+                    E
+                </button>
+                <button onclick="setLanguage('default')" class="lang-btn default-btn" 
+                        data-tooltip-ar="تلقائي" data-tooltip-en="Auto">
+                    عE
+                </button>
+            </div>
+        </div>
+
+        <!-- Lucky Strike -->
+        <div class="sidebar-section">
+            <button id="luckyStrikeBtn" class="lucky-btn" 
+                    data-tooltip-ar="ضربة حظ" data-tooltip-en="Lucky Strike">
+                <div class="icon"><i class="fa-solid fa-dice"></i></div>
+            </button>
+        </div>
+
+        <!-- Contact Us -->
+        <div class="sidebar-section contact-section">
+            <h3 data-tooltip-ar="تواصل معنا" data-tooltip-en="Contact Us">
+                <i class="fa-solid fa-address-book"></i>
+            </h3>
+            <div class="social-links">
+                <a href="#" class="social-icon telegram" data-tooltip-ar="تلجرام" data-tooltip-en="Telegram">
+                    <i class="fa-brands fa-telegram"></i>
+                </a>
+                <a href="#" class="social-icon whatsapp" data-tooltip-ar="واتساب" data-tooltip-en="WhatsApp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+                <a href="#" class="social-icon facebook" data-tooltip-ar="فيسبوك" data-tooltip-en="Facebook">
+                    <i class="fa-brands fa-facebook"></i>
+                </a>
+                <a href="#" class="social-icon snapchat" data-tooltip-ar="سناب شات" data-tooltip-en="Snapchat">
+                    <i class="fa-brands fa-snapchat"></i>
+                </a>
+                <a href="#" class="social-icon tiktok" data-tooltip-ar="تيك توك" data-tooltip-en="TikTok">
+                    <i class="fa-brands fa-tiktok"></i>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <div class="photos-container">
+        
+        <!-- 3D Carousel Section -->
+        <div class="scene">
+            <div class="carousel" id="carousel3D">
+                <!-- Images will be injected here -->
+            </div>
+        </div>
+
+        <header class="photos-header">
+            <h1>
+                <div class="ar-text">معرض الصور</div>
+                <div class="en-text">Photo Gallery</div>
+            </h1>
+            <p class="subtitle">
+                <span class="ar-text">قسم الصور</span>
+                <span class="en-text">Photos Section</span>
+            </p>
+        </header>
+
+        <!-- Categories Section -->
+        <h2 class="section-title">
+            <div class="ar-text">الأقسام</div>
+            <div class="en-text">Categories</div>
+        </h2>
+        <div class="grid">
+            <div class="card photo-card" data-category="nature">
+                <div class="card-icon">🌲</div>
+                <h2>
+                    <div class="ar-text">صور طبيعية</div>
+                    <div class="en-text">Nature Photos</div>
+                </h2>
+            </div>
+            <div class="card photo-card" data-category="cars">
+                <div class="card-icon">🏎️</div>
+                <h2>
+                    <div class="ar-text">صور سيارات</div>
+                    <div class="en-text">Car Photos</div>
+                </h2>
+            </div>
+            <div class="card photo-card" data-category="robots">
+                <div class="card-icon">🤖</div>
+                <h2>
+                    <div class="ar-text">صور روبوتات</div>
+                    <div class="en-text">Robot Photos</div>
+                </h2>
+            </div>
+            <div class="card photo-card" data-category="animals">
+                <div class="card-icon">🦁</div>
+                <h2>
+                    <div class="ar-text">صور حيوانات</div>
+                    <div class="en-text">Animal Photos</div>
+                </h2>
+            </div>
+             <div class="card photo-card" data-category="strange">
+                <div class="card-icon">👽</div>
+                <h2>
+                    <div class="ar-text">صور غريبة</div>
+                    <div class="en-text">Strange Photos</div>
+                </h2>
+            </div>
+             <div class="card photo-card" data-category="monsters">
+                <div class="card-icon">👹</div>
+                <h2>
+                    <div class="ar-text">صور وحوش</div>
+                    <div class="en-text">Monster Photos</div>
+                </h2>
+            </div>
+            <div class="card photo-card" data-category="cities">
+                <div class="card-icon">🏙️</div>
+                <h2>
+                    <div class="ar-text">صور مدن</div>
+                    <div class="en-text">City Photos</div>
+                </h2>
+            </div>
+            <div class="card photo-card" data-category="space">
+                <div class="card-icon">🚀</div>
+                <h2>
+                    <div class="ar-text">صور فضاء</div>
+                    <div class="en-text">Space Photos</div>
+                </h2>
+            </div>
+            <div class="card photo-card" data-category="food">
+                <div class="card-icon">🍕</div>
+                <h2>
+                    <div class="ar-text">صور طعام</div>
+                    <div class="en-text">Food Photos</div>
+                </h2>
+            </div>
+            <div class="card photo-card" data-category="sports">
+                <div class="card-icon">⚽</div>
+                <h2>
+                    <div class="ar-text">صور رياضة</div>
+                    <div class="en-text">Sports Photos</div>
+                </h2>
+            </div>
+            <div class="card photo-card" data-category="art">
+                <div class="card-icon">🎨</div>
+                <h2>
+                    <div class="ar-text">صور فن</div>
+                    <div class="en-text">Art Photos</div>
+                </h2>
+            </div>
+            <div class="card photo-card" data-category="tech">
+                <div class="card-icon">💻</div>
+                <h2>
+                    <div class="ar-text">صور تكنولوجيا</div>
+                    <div class="en-text">Technology Photos</div>
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/photos.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

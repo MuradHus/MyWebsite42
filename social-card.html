@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بطاقة التعريف الرقمية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/social-card.css">
+</head>
+<body class="dark-mode">
+    
+    <header class="header">
+        <div class="container">
+            <a href="designs.html" class="back-btn">🔙 قسم التصميم</a>
+            <h1>صانع البطاقات الشخصية</h1>
+        </div>
+    </header>
+
+    <main class="container workspace">
+        
+        <!-- Editor Section -->
+        <section class="editor-panel">
+            <h3>البيانات الشخصية</h3>
+            
+            <div class="control-group">
+                <div class="avatar-upload" onclick="document.getElementById('avatarInput').click()">
+                    <img id="avatarPreview" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d4af37' stroke-width='2'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E">
+                    <div class="upload-hint">تغيير الصورة</div>
+                </div>
+                <input type="file" id="avatarInput" accept="image/*" hidden>
+            </div>
+
+            <div class="control-group">
+                <label>الاسم</label>
+                <input type="text" id="inputName" value="الاسم الكريم" placeholder="مثال: محمد أحمد">
+            </div>
+
+            <div class="control-group">
+                <label>المسمى الوظيفي</label>
+                <input type="text" id="inputJob" value="مصمم جرافيك" placeholder="مثال: مطور ويب">
+            </div>
+
+            <div class="control-group">
+                <label>نبذة قصيرة</label>
+                <textarea id="inputBio" rows="2" placeholder="اكتب نبذة مختصرة عنك...">مدون وصانع محتوى في مجال التقنية.</textarea>
+            </div>
+
+            <hr style="border-color: #333; margin: 1.5rem 0;">
+
+            <h3>حسابات التواصل</h3>
+            <div id="linksContainer">
+                <!-- Links injected by JS -->
+            </div>
+            <button class="btn-secondary" id="addLinkBtn">+ إضافة حساب</button>
+
+            <hr style="border-color: #333; margin: 1.5rem 0;">
+            
+            <h3>المظهر</h3>
+            <div class="theme-selector">
+                <button class="theme-btn active" data-bg="linear-gradient(45deg, #121212, #2a2a2a)" style="background: linear-gradient(45deg, #121212, #2a2a2a)"></button>
+                <button class="theme-btn" data-bg="linear-gradient(135deg, #667eea 0%, #764ba2 100%)" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)"></button>
+                <button class="theme-btn" data-bg="linear-gradient(135deg, #FF512F 0%, #DD2476 100%)" style="background: linear-gradient(135deg, #FF512F 0%, #DD2476 100%)"></button>
+                <button class="theme-btn" data-bg="linear-gradient(135deg, #11998e 0%, #38ef7d 100%)" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%)"></button>
+                <button class="theme-btn" data-bg="linear-gradient(135deg, #000000 0%, #434343 100%)" style="background: linear-gradient(135deg, #000000 0%, #434343 100%)"></button>
+            </div>
+            
+        </section>
+
+        <!-- Preview Section -->
+        <section class="preview-panel">
+            <div class="card-wrapper" id="cardWrapper">
+                <!-- The Card -->
+                <div class="digital-card" id="digitalCard">
+                    <div class="card-bg"></div>
+                    <div class="card-content">
+                        <div class="profile-img-container">
+                            <img id="cardAvatar" src="images/placeholder-avatar.png"> <!-- Fallback logic in JS -->
+                        </div>
+                        <h2 id="cardName">الاسم الكريم</h2>
+                        <p id="cardJob">مصمم جرافيك</p>
+                        <p id="cardBio">مدون وصانع محتوى في مجال التقنية.</p>
+                        
+                        <div class="social-links" id="cardLinks">
+                            <!-- Icons -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="downloadBtn" class="btn-main">⬇️ تحميل البطاقة (PNG)</button>
+        </section>
+
+    </main>
+    
+    <!-- Hidden Canvas for Export -->
+    <canvas id="exportCanvas" style="display:none;"></canvas>
+
+    <script src="js/social-card.js"></script>
+</body>
+</html>

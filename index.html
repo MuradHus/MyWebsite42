@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>موقعي الشخصي</title>
+    <!-- Google Fonts: Cairo for Arabic text -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/clock.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dark-mode">
+
+    <!-- Top Status Bar -->
+    <div id="topStatusBar" class="status-bar">
+        <!-- Date (Left) -->
+        <div id="dateContainer" class="date-container"></div>
+        
+        <!-- Clock (Right) -->
+        <div id="clockContainer" class="clock-container">
+            <!-- Seconds (Right) -->
+            <div class="digit-group" id="group-sec">
+                <div class="digit" id="sec-2"></div>
+                <div class="digit" id="sec-1"></div>
+            </div>
+            <div class="separator">:</div>
+            <!-- Minutes -->
+            <div class="digit-group" id="group-min">
+                <div class="digit" id="min-2"></div>
+                <div class="digit" id="min-1"></div>
+            </div>
+            <div class="separator">:</div>
+            <!-- Hours (Left) -->
+            <div class="digit-group" id="group-hour">
+                <div class="digit" id="hour-2"></div>
+                <div class="digit" id="hour-1"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Sidebar -->
+    <aside class="sidebar">
+        <!-- Language Settings -->
+        <div class="sidebar-section">
+            <h3 data-tooltip-ar="اللغة" data-tooltip-en="Language">
+                <i class="fa-solid fa-earth-americas"></i>
+            </h3>
+            <div class="lang-options">
+                <button onclick="setLanguage('ar')" class="lang-btn" 
+                        data-tooltip-ar="العربية" data-tooltip-en="Arabic">
+                    ؏
+                </button>
+                <button onclick="setLanguage('en')" class="lang-btn" 
+                        data-tooltip-ar="الإنجليزية" data-tooltip-en="English">
+                    E
+                </button>
+                <button onclick="setLanguage('default')" class="lang-btn default-btn" 
+                        data-tooltip-ar="تلقائي" data-tooltip-en="Auto">
+                    ؏E
+                </button>
+            </div>
+        </div>
+
+        <!-- Lucky Strike -->
+        <div class="sidebar-section">
+            <button id="luckyStrikeBtn" class="lucky-btn" 
+                    data-tooltip-ar="ضربة حظ" data-tooltip-en="Lucky Strike">
+                <div class="icon"><i class="fa-solid fa-dice"></i></div>
+            </button>
+        </div>
+
+        <!-- Contact Us -->
+        <div class="sidebar-section contact-section">
+            <h3 data-tooltip-ar="تواصل معنا" data-tooltip-en="Contact Us">
+                <i class="fa-solid fa-address-book"></i>
+            </h3>
+            <div class="social-links">
+                <a href="#" class="social-icon telegram" data-tooltip-ar="تلجرام" data-tooltip-en="Telegram">
+                    <i class="fa-brands fa-telegram"></i>
+                </a>
+                <a href="#" class="social-icon whatsapp" data-tooltip-ar="واتساب" data-tooltip-en="WhatsApp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+                <a href="#" class="social-icon facebook" data-tooltip-ar="فيسبوك" data-tooltip-en="Facebook">
+                    <i class="fa-brands fa-facebook"></i>
+                </a>
+                <a href="#" class="social-icon snapchat" data-tooltip-ar="سناب شات" data-tooltip-en="Snapchat">
+                    <i class="fa-brands fa-snapchat"></i>
+                </a>
+                <a href="#" class="social-icon tiktok" data-tooltip-ar="تيك توك" data-tooltip-en="TikTok">
+                    <i class="fa-brands fa-tiktok"></i>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Physics Layer -->
+    <div id="debrisLayer" class="debris-layer"></div>
+
+    <!-- Background Animation Canvas -->
+    <canvas id="backgroundCanvas"></canvas>
+
+    <!-- Cursor Animation Canvas -->
+    <canvas id="cursorCanvas"></canvas>
+
+    <div class="container">
+      <header class="header">
+        <h1>
+            <div class="ar-text">مرحباً بكم في عالمي</div>
+            <div class="en-text">Welcome to My World</div>
+        </h1>
+      </header>
+
+      <div class="grid">
+        <!-- Cards -->
+        <div class="card" data-category="photos">
+          <div class="card-icon">📷</div>
+          <h2>
+            <div class="ar-text">الصور</div>
+            <div class="en-text">Photos</div>
+          </h2>
+          <p>
+            <div class="ar-text">معرض صوري الخاصة</div>
+            <div class="en-text">My Personal Gallery</div>
+          </p>
+        </div>
+
+        <div class="card" data-category="articles">
+          <div class="card-icon">📝</div>
+          <h2>
+            <div class="ar-text">المقالات</div>
+            <div class="en-text">Articles</div>
+          </h2>
+          <p>
+            <div class="ar-text">كتاباتي وأفكاري</div>
+            <div class="en-text">My Writings & Thoughts</div>
+          </p>
+        </div>
+
+        <div class="card" data-category="books">
+          <div class="card-icon">📚</div>
+          <h2>
+            <div class="ar-text">الكتب</div>
+            <div class="en-text">Books</div>
+          </h2>
+          <p>
+            <div class="ar-text">مكتبتي وقراءاتي</div>
+            <div class="en-text">My Library & Readings</div>
+          </p>
+        </div>
+
+        <div class="card" data-category="games">
+          <div class="card-icon">🎮</div>
+          <h2>
+            <div class="ar-text">الألعاب</div>
+            <div class="en-text">Games</div>
+          </h2>
+          <p>
+            <div class="ar-text">ألعاب مفضلة</div>
+            <div class="en-text">Favorite Games</div>
+          </p>
+        </div>
+
+        <div class="card" data-category="tools">
+          <div class="card-icon">🛠️</div>
+          <h2>
+            <div class="ar-text">الأدوات</div>
+            <div class="en-text">Tools</div>
+          </h2>
+          <p>
+            <div class="ar-text">أدوات ومصادر مفيدة</div>
+            <div class="en-text">Useful Tools & Resources</div>
+          </p>
+        </div>
+
+        <div class="card" data-category="competitions">
+          <div class="card-icon">🏆</div>
+          <h2>
+            <div class="ar-text">المسابقات</div>
+            <div class="en-text">Competitions</div>
+          </h2>
+          <p>
+            <div class="ar-text">تحديات وجوائز</div>
+            <div class="en-text">Challenges & Awards</div>
+          </p>
+        </div>
+
+        <div class="card" data-category="designs">
+          <div class="card-icon">🎨</div>
+          <h2>
+            <div class="ar-text">تصميماتي</div>
+            <div class="en-text">Designs</div>
+          </h2>
+          <p>
+            <div class="ar-text">أعمالي الفنية</div>
+            <div class="en-text">My Artwork</div>
+          </p>
+        </div>
+
+        <div class="card" data-category="special">
+          <div class="card-icon">⭐</div>
+          <h2>
+            <div class="ar-text">قسم خاص</div>
+            <div class="en-text">Special Section</div>
+          </h2>
+          <p>
+            <div class="ar-text">محتوى مميز</div>
+            <div class="en-text">Featured Content</div>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/clock.js"></script>
+</body>
+</html>

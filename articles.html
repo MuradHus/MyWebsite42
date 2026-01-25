@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المقالات</title>
+    <!-- Google Fonts: Cairo -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="articles-page">
+    
+    <!-- Fixed Navigation -->
+    <a href="index.html" class="back-btn fixed-nav">🏠 الرئيسية</a>
+
+    <!-- Right Sidebar -->
+    <aside class="sidebar">
+        <!-- Language Settings -->
+        <div class="sidebar-section">
+            <h3 data-tooltip-ar="اللغة" data-tooltip-en="Language">
+                <i class="fa-solid fa-earth-americas"></i>
+            </h3>
+            <div class="lang-options">
+                <button onclick="setLanguage('ar')" class="lang-btn" 
+                        data-tooltip-ar="العربية" data-tooltip-en="Arabic">
+                    ؏
+                </button>
+                <button onclick="setLanguage('en')" class="lang-btn" 
+                        data-tooltip-ar="الإنجليزية" data-tooltip-en="English">
+                    E
+                </button>
+                <button onclick="setLanguage('default')" class="lang-btn default-btn" 
+                        data-tooltip-ar="تلقائي" data-tooltip-en="Auto">
+                    ؏E
+                </button>
+            </div>
+        </div>
+
+        <!-- Lucky Strike -->
+        <div class="sidebar-section">
+            <button id="luckyStrikeBtn" class="lucky-btn" 
+                    data-tooltip-ar="ضربة حظ" data-tooltip-en="Lucky Strike">
+                <div class="icon"><i class="fa-solid fa-dice"></i></div>
+            </button>
+        </div>
+
+        <!-- Contact Us -->
+        <div class="sidebar-section contact-section">
+            <h3 data-tooltip-ar="تواصل معنا" data-tooltip-en="Contact Us">
+                <i class="fa-solid fa-address-book"></i>
+            </h3>
+            <div class="social-links">
+                <a href="#" class="social-icon telegram" data-tooltip-ar="تلجرام" data-tooltip-en="Telegram">
+                    <i class="fa-brands fa-telegram"></i>
+                </a>
+                <a href="#" class="social-icon whatsapp" data-tooltip-ar="واتساب" data-tooltip-en="WhatsApp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+                <a href="#" class="social-icon facebook" data-tooltip-ar="فيسبوك" data-tooltip-en="Facebook">
+                    <i class="fa-brands fa-facebook"></i>
+                </a>
+                <a href="#" class="social-icon snapchat" data-tooltip-ar="سناب شات" data-tooltip-en="Snapchat">
+                    <i class="fa-brands fa-snapchat"></i>
+                </a>
+                <a href="#" class="social-icon tiktok" data-tooltip-ar="تيك توك" data-tooltip-en="TikTok">
+                    <i class="fa-brands fa-tiktok"></i>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <div class="container">
+        <header class="articles-header">
+            <h1>
+                <div class="ar-text">المقالات</div>
+                <div class="en-text">Articles</div>
+            </h1>
+            <p class="subtitle">
+                <span class="ar-text">مقالات علمية وتقنية متنوعة</span>
+                <span class="en-text">Diverse Scientific & Technical Articles</span>
+            </p>
+        </header>
+
+        <!-- Articles Grid -->
+        <div class="grid">
+            <div class="card article-card" data-article="mathematics">
+                <div class="card-icon">📐</div>
+                <h2>
+                    <div class="ar-text">مقالة الرياضيات</div>
+                    <div class="en-text">Mathematics Article</div>
+                </h2>
+                <p>
+                    <span class="ar-text">استكشف عالم الأرقام والمعادلات</span>
+                    <span class="en-text">Explore the world of numbers and equations</span>
+                </p>
+            </div>
+
+            <div class="card article-card" data-article="science">
+                <div class="card-icon">🔬</div>
+                <h2>
+                    <div class="ar-text">مقالة العلوم</div>
+                    <div class="en-text">Science Article</div>
+                </h2>
+                <p>
+                    <span class="ar-text">اكتشافات علمية مذهلة</span>
+                    <span class="en-text">Amazing scientific discoveries</span>
+                </p>
+            </div>
+
+            <div class="card article-card" data-article="technology">
+                <div class="card-icon">💻</div>
+                <h2>
+                    <div class="ar-text">مقالة التكنولوجيا</div>
+                    <div class="en-text">Technology Article</div>
+                </h2>
+                <p>
+                    <span class="ar-text">أحدث التقنيات والابتكارات</span>
+                    <span class="en-text">Latest technologies and innovations</span>
+                </p>
+            </div>
+
+            <div class="card article-card" data-article="ai">
+                <div class="card-icon">🤖</div>
+                <h2>
+                    <div class="ar-text">مقالة الذكاء الاصطناعي</div>
+                    <div class="en-text">Artificial Intelligence Article</div>
+                </h2>
+                <p>
+                    <span class="ar-text">مستقبل الذكاء الاصطناعي</span>
+                    <span class="en-text">The future of artificial intelligence</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Article Viewer Modal -->
+    <div id="articleModal" class="article-modal">
+        <div class="article-modal-content">
+            <button class="close-modal" onclick="closeArticle()">&times;</button>
+            
+            <div class="article-viewer">
+                <!-- Language Toggle Button -->
+                <button class="lang-toggle-btn" onclick="toggleArticleLang()" data-tooltip-ar="التبديل للإنجليزية" data-tooltip-en="Switch to English">
+                    <i class="fa-solid fa-language"></i>
+                    <span class="toggle-text">
+                        <span class="ar-toggle">EN</span>
+                        <span class="en-toggle">AR</span>
+                    </span>
+                </button>
+
+                <!-- Articles Container (Sliding) -->
+                <div class="articles-container" id="articlesContainer">
+                    <!-- Arabic Article -->
+                    <div class="article-content arabic-article">
+                        <h1 id="articleTitleAr">عنوان المقالة</h1>
+                        <div class="article-meta">
+                            <span class="article-date">التاريخ: 25 يناير 2026</span>
+                        </div>
+                        <div class="article-body" id="articleBodyAr">
+                            <p>محتوى المقالة باللغة العربية...</p>
+                        </div>
+                    </div>
+
+                    <!-- English Article -->
+                    <div class="article-content english-article">
+                        <h1 id="articleTitleEn">Article Title</h1>
+                        <div class="article-meta">
+                            <span class="article-date">Date: January 25, 2026</span>
+                        </div>
+                        <div class="article-body" id="articleBodyEn">
+                            <p>Article content in English...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/articles.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مُولّد QR الملون</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/qr-generator.css">
+    <!-- QR Logic Library (Better for custom drawing) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+</head>
+<body class="dark-mode">
+    
+    <header class="header">
+        <div class="container">
+            <a href="designs.html" class="back-btn">🔙 قسم التصميم</a>
+            <h1>مُولّد QR الاحترافي</h1>
+        </div>
+    </header>
+
+    <main class="container workspace">
+        
+        <!-- Controls -->
+        <section class="controls-panel">
+            
+            <div class="control-group">
+                <label>نوع المحتوى</label>
+                <div class="radio-group" style="margin-bottom: 15px;">
+                    <label class="radio-option">
+                        <input type="radio" name="contentType" value="text" checked>
+                        <span class="radio-custom"></span>
+                        <span class="radio-label">رابط / نص</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="contentType" value="phone">
+                        <span class="radio-custom"></span>
+                        <span class="radio-label">بطاقة هاتف</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="contentType" value="email">
+                        <span class="radio-custom"></span>
+                        <span class="radio-label">رسالة إيميل</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Text Input Group -->
+            <div id="textInputGroup" class="control-group">
+                <label>الرابط أو النص (يدعم العربية)</label>
+                <input type="text" id="qrText" placeholder="اكتب هنا..." value="https://google.com">
+            </div>
+
+            <!-- Phone Input Group -->
+            <div id="phoneInputGroup" class="control-group" style="display: none;">
+                <label>الاسم</label>
+                <input type="text" id="contactName" placeholder="فلان الفلاني">
+                <label style="margin-top: 10px;">رقم الهاتف</label>
+                <input type="text" id="contactNumber" placeholder="+9665xxxxxxxx">
+            </div>
+
+            <!-- Email Input Group -->
+            <div id="emailInputGroup" class="control-group" style="display: none;">
+                <label>البريد الإلكتروني</label>
+                <input type="text" id="emailAddr" placeholder="name@example.com">
+                <label style="margin-top: 10px;">الموضوع</label>
+                <input type="text" id="emailSubject" placeholder="عنوان الرسالة">
+                <label style="margin-top: 10px;">نص الرسالة</label>
+                <input type="text" id="emailBody" placeholder="محتوى الرسالة...">
+            </div>
+
+            <div class="control-group">
+                <label>نمط النقاط (Shape)</label>
+                <select id="qrShape">
+                    <option value="square">مربعات (كلاسيكي)</option>
+                    <option value="circle">دوائر (Dots)</option>
+                    <option value="emoji">إيموجي (😊)</option>
+                </select>
+                
+                <div id="emojiInputWrapper" style="display:none; margin-top: 10px;">
+                    <label>اختر الإيموجي:</label>
+                    <input type="text" id="qrEmojiChar" value="❤️" maxlength="2" style="width: 60px; text-align: center;">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>الألوان (تدرج)</label>
+                <div class="color-row">
+                    <div class="color-box">
+                        <span>اللون 1:</span>
+                        <input type="color" id="qrForeground" value="#d4af37">
+                    </div>
+                    <div class="color-box">
+                        <span>اللون 2:</span>
+                        <input type="color" id="qrForeground2" value="#ffd700">
+                    </div>
+                </div>
+                <div class="color-row" style="margin-top: 10px;">
+                     <div class="color-box">
+                        <span>الخلفية:</span>
+                        <input type="color" id="qrBackground" value="#ffffff">
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>إضافة شعار (Logo)</label>
+                <div class="file-input-wrapper">
+                    <button class="upload-btn" onclick="document.getElementById('logoInput').click()">
+                        📸 اختر صورة الشعار
+                    </button>
+                    <input type="file" id="logoInput" accept="image/*" hidden>
+                    <div id="logoName" class="file-name">لا يوجد شعار</div>
+                </div>
+                <div class="slider-group" style="margin-top: 10px;">
+                    <label>حجم الشعار</label>
+                    <input type="range" id="logoSize" min="10" max="30" value="20">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>الدقة والحجم</label>
+                <input type="range" id="qrSize" min="200" max="1000" value="300" step="50">
+                <span id="sizeValue">300px</span>
+            </div>
+
+        </section>
+
+        <!-- Preview -->
+        <section class="preview-panel">
+            <div class="canvas-wrapper">
+                <canvas id="qrCanvas"></canvas>
+            </div>
+            <button id="downloadBtn" class="download-btn">⬇️ تحميل الرمز (PNG)</button>
+        </section>
+
+    </main>
+
+    <script src="js/qr-generator.js"></script>
+</body>
+</html>

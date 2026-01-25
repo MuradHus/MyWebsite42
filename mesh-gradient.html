@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خلفيات Mesh المتدرجة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/mesh-gradient.css">
+</head>
+<body class="dark-mode">
+    
+    <header class="header">
+        <div class="container">
+            <a href="designs.html" class="back-btn">🔙 قسم التصميم</a>
+            <h1>مُولّد خلفيات Mesh</h1>
+        </div>
+    </header>
+
+    <main class="workspace">
+        
+        <div class="canvas-container">
+            <canvas id="meshCanvas"></canvas>
+            <div class="overlay-hint">حرك الألوان لتغيير التموج! (قريباً)</div>
+        </div>
+
+        <div class="controls-panel">
+            <h3>التحكم بالألوان</h3>
+            
+            <div class="colors-grid">
+                <div class="color-item">
+                    <input type="color" id="color1" value="#ff0000">
+                </div>
+                <div class="color-item">
+                    <input type="color" id="color2" value="#00ff00">
+                </div>
+                <div class="color-item">
+                    <input type="color" id="color3" value="#0000ff">
+                </div>
+                <div class="color-item">
+                    <input type="color" id="color4" value="#aaaa00">
+                </div>
+            </div>
+
+            <div class="actions">
+                <button id="randomBtn" class="btn-action random">🎲 عشوائي</button>
+                <button id="downloadBtn" class="btn-action download">⬇️ تحميل (4K)</button>
+            </div>
+            
+            <div class="settings">
+                <label>شدة الدمج (Blur)</label>
+                <input type="range" id="blurRange" min="50" max="200" value="100">
+            </div>
+        </div>
+
+    </main>
+
+    <script src="js/mesh-gradient.js"></script>
+</body>
+</html>

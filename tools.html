@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الأدوات الهندسية</title>
+    <!-- Google Fonts: Cairo -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="tools-page">
+    
+    <!-- Fixed Navigation -->
+    <a href="index.html" class="back-btn fixed-nav">🏠 الرئيسية</a>
+
+    <!-- Right Sidebar -->
+    <aside class="sidebar">
+        <!-- Language Settings -->
+        <div class="sidebar-section">
+            <h3 data-tooltip-ar="اللغة" data-tooltip-en="Language">
+                <i class="fa-solid fa-earth-americas"></i>
+            </h3>
+            <div class="lang-options">
+                <button onclick="setLanguage('ar')" class="lang-btn" 
+                        data-tooltip-ar="العربية" data-tooltip-en="Arabic">
+                    ؏
+                </button>
+                <button onclick="setLanguage('en')" class="lang-btn" 
+                        data-tooltip-ar="الإنجليزية" data-tooltip-en="English">
+                    E
+                </button>
+                <button onclick="setLanguage('default')" class="lang-btn default-btn" 
+                        data-tooltip-ar="تلقائي" data-tooltip-en="Auto">
+                    عE
+                </button>
+            </div>
+        </div>
+
+        <!-- Lucky Strike -->
+        <div class="sidebar-section">
+            <button id="luckyStrikeBtn" class="lucky-btn" 
+                    data-tooltip-ar="ضربة حظ" data-tooltip-en="Lucky Strike">
+                <div class="icon"><i class="fa-solid fa-dice"></i></div>
+            </button>
+        </div>
+
+        <!-- Contact Us -->
+        <div class="sidebar-section contact-section">
+            <h3 data-tooltip-ar="تواصل معنا" data-tooltip-en="Contact Us">
+                <i class="fa-solid fa-address-book"></i>
+            </h3>
+            <div class="social-links">
+                <a href="#" class="social-icon telegram" data-tooltip-ar="تلجرام" data-tooltip-en="Telegram">
+                    <i class="fa-brands fa-telegram"></i>
+                </a>
+                <a href="#" class="social-icon whatsapp" data-tooltip-ar="واتساب" data-tooltip-en="WhatsApp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+                <a href="#" class="social-icon facebook" data-tooltip-ar="فيسبوك" data-tooltip-en="Facebook">
+                    <i class="fa-brands fa-facebook"></i>
+                </a>
+                <a href="#" class="social-icon snapchat" data-tooltip-ar="سناب شات" data-tooltip-en="Snapchat">
+                    <i class="fa-brands fa-snapchat"></i>
+                </a>
+                <a href="#" class="social-icon tiktok" data-tooltip-ar="تيك توك" data-tooltip-en="TikTok">
+                    <i class="fa-brands fa-tiktok"></i>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <div class="tools-container">
+        
+        <!-- Header Animation (Golden Gears) -->
+        <header class="tools-header">
+            <canvas id="gearsCanvas"></canvas>
+            <div class="header-content">
+                <h1>
+                    <div class="ar-text">الأدوات الهندسية والعلمية</div>
+                    <div class="en-text">Engineering & Scientific Tools</div>
+                </h1>
+                <p>
+                    <span class="ar-text">مجموعة من الأدوات الحاسبة المفيدة</span>
+                    <span class="en-text">Collection of Useful Calculator Tools</span>
+                </p>
+            </div>
+        </header>
+
+        <!-- Tools Grid -->
+        <div class="grid">
+            <div class="card tool-card" onclick="openTool('freefall')">
+                <div class="card-icon">⏱️</div>
+                <h2>
+                    <div class="ar-text">حساب الارتفاع (سقوط حر)</div>
+                    <div class="en-text">Height Calculator (Free Fall)</div>
+                </h2>
+                <p>
+                    <span class="ar-text">احسب ارتفاع المبنى برمي حجر</span>
+                    <span class="en-text">Calculate building height by dropping a stone</span>
+                </p>
+            </div>
+
+            <div class="card tool-card" onclick="openTool('number9')">
+                <div class="card-icon">9️⃣</div>
+                <h2>
+                    <div class="ar-text">أسرار الرقم 9</div>
+                    <div class="en-text">Secrets of Number 9</div>
+                </h2>
+                <p>
+                    <span class="ar-text">اكتشف عجائب الرقم 9</span>
+                    <span class="en-text">Discover the wonders of number 9</span>
+                </p>
+            </div>
+
+            <div class="card tool-card" onclick="openTool('shapes')">
+                <div class="card-icon">📐</div>
+                <h2>
+                    <div class="ar-text">المساحة والمحيط</div>
+                    <div class="en-text">Area & Perimeter</div>
+                </h2>
+                <p>
+                    <span class="ar-text">حسابات الأشكال الهندسية</span>
+                    <span class="en-text">Geometric shape calculations</span>
+                </p>
+            </div>
+
+            <div class="card tool-card" onclick="openTool('thumb')">
+                <div class="card-icon">👍</div>
+                <h2>
+                    <div class="ar-text">مقياس الإبهام</div>
+                    <div class="en-text">Thumb Method</div>
+                </h2>
+                <p>
+                    <span class="ar-text">تقدير المسافات البعيدة</span>
+                    <span class="en-text">Estimate distant distances</span>
+                </p>
+            </div>
+
+            <div class="card tool-card" onclick="openTool('lightning')">
+                <div class="card-icon">⚡</div>
+                <h2>
+                    <div class="ar-text">بُعد البرق</div>
+                    <div class="en-text">Lightning Distance</div>
+                </h2>
+                <p>
+                    <span class="ar-text">كم يبعد مكان الصاعقة؟</span>
+                    <span class="en-text">How far is the lightning?</span>
+                </p>
+            </div>
+
+            <!-- New Tools -->
+            <div class="card tool-card" onclick="openTool('age')">
+                <div class="card-icon">🎂</div>
+                <h2>
+                    <div class="ar-text">حساب العمر</div>
+                    <div class="en-text">Age Calculator</div>
+                </h2>
+                <p>
+                    <span class="ar-text">عمرك بالتفصيل الممل</span>
+                    <span class="en-text">Your age in detail</span>
+                </p>
+            </div>
+
+            <div class="card tool-card" onclick="openTool('bmi')">
+                <div class="card-icon">⚖️</div>
+                <h2>
+                    <div class="ar-text">الوزن المثالي (BMI)</div>
+                    <div class="en-text">Ideal Weight (BMI)</div>
+                </h2>
+                <p>
+                    <span class="ar-text">هل وزنك صحي؟</span>
+                    <span class="en-text">Is your weight healthy?</span>
+                </p>
+            </div>
+
+            <div class="card tool-card" onclick="openTool('stopwatch')">
+                <div class="card-icon">⏱️</div>
+                <h2>
+                    <div class="ar-text">ساعة إيقاف</div>
+                    <div class="en-text">Stopwatch</div>
+                </h2>
+                <p>
+                    <span class="ar-text">مؤقت دقيق للأنشطة</span>
+                    <span class="en-text">Precise timer for activities</span>
+                </p>
+            </div>
+
+            <div class="card tool-card" onclick="openTool('units')">
+                <div class="card-icon">🔄</div>
+                <h2>
+                    <div class="ar-text">محول الوحدات</div>
+                    <div class="en-text">Unit Converter</div>
+                </h2>
+                <p>
+                    <span class="ar-text">تحويل الوزن والطول</span>
+                    <span class="en-text">Convert weight and length</span>
+                </p>
+            </div>
+
+            <div class="card tool-card" onclick="openTool('binary')">
+                <div class="card-icon">0️⃣1️⃣</div>
+                <h2>
+                    <div class="ar-text">محول ثنائي</div>
+                    <div class="en-text">Binary Converter</div>
+                </h2>
+                <p>
+                    <span class="ar-text">تحدث بلغة الحاسوب</span>
+                    <span class="en-text">Speak computer language</span>
+                </p>
+            </div>
+
+            <!-- Newest Tools (Batch 3) -->
+            <div class="card tool-card" onclick="openTool('unicode')">
+                <div class="card-icon">🔣</div>
+                <h2>
+                    <div class="ar-text">رمز يونيكود</div>
+                    <div class="en-text">Unicode Symbol</div>
+                </h2>
+                <p>
+                    <span class="ar-text">اكتشف أكواد الرموز</span>
+                    <span class="en-text">Discover symbol codes</span>
+                </p>
+            </div>
+
+            <div class="card tool-card" onclick="openTool('color')">
+                <div class="card-icon">🎨</div>
+                <h2>
+                    <div class="ar-text">رمز اللون</div>
+                    <div class="en-text">Color Code</div>
+                </h2>
+                <p>
+                    <span class="ar-text">لوحة ألوان وإكوادها</span>
+                    <span class="en-text">Color palette and codes</span>
+                </p>
+            </div>
+
+            <div class="card tool-card" onclick="openTool('constants')">
+                <div class="card-icon">π</div>
+                <h2>
+                    <div class="ar-text">الثوابت الرياضية</div>
+                    <div class="en-text">Mathematical Constants</div>
+                </h2>
+                <p>
+                    <span class="ar-text">أرقام غيرت العالم</span>
+                    <span class="en-text">Numbers that changed the world</span>
+                </p>
+            </div>
+
+            <div class="card tool-card" onclick="openTool('speed')">
+                <div class="card-icon">🚀</div>
+                <h2>
+                    <div class="ar-text">حساب السرعة</div>
+                    <div class="en-text">Speed Calculator</div>
+                </h2>
+                <p>
+                    <span class="ar-text">المسافة والزمن</span>
+                    <span class="en-text">Distance and time</span>
+                </p>
+            </div>
+
+            <div class="card tool-card" onclick="openTool('bricks')">
+                <div class="card-icon">🧱</div>
+                <h2>
+                    <div class="ar-text">حساب الطوب</div>
+                    <div class="en-text">Brick Calculator</div>
+                </h2>
+                <p>
+                    <span class="ar-text">كم طوبة تحتاج للجدار؟</span>
+                    <span class="en-text">How many bricks for the wall?</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Tool Modals/Sections (Hidden by default) -->
+        <div id="tool-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+                <div id="modal-body">
+                    <!-- Dynamic Content -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="js/tools.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

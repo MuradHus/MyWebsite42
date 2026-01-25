@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محلل المقاومات - Resistor Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/resistor-calc.css">
+</head>
+<body class="dark-mode">
+    
+    <header class="header">
+        <div class="container">
+            <a href="designs.html" class="back-btn">🔙 قسم التصميم</a>
+            <h1>محلل ألوان المقاومات</h1>
+        </div>
+    </header>
+
+    <main class="container workspace">
+        
+        <!-- Resistor Visual -->
+        <section class="visual-panel">
+            <div class="resistor-body">
+                <div class="wire left"></div>
+                <div class="wire right"></div>
+                <div class="body-center">
+                    <div class="band band-1"></div>
+                    <div class="band band-2"></div>
+                    <div class="band band-3"></div> <!-- Only for 5 bands -->
+                    <div class="band band-mul"></div>
+                    <div class="band band-tol"></div>
+                </div>
+            </div>
+            
+            <div class="result-display">
+                <h2 id="resValue">10 kΩ</h2>
+                <span id="resTol">±5%</span>
+            </div>
+        </section>
+
+        <!-- Controls -->
+        <section class="controls-panel">
+            
+            <div class="mode-switch">
+                <button class="mode-btn active" data-bands="4">4 حلقات</button>
+                <button class="mode-btn" data-bands="5">5 حلقات</button>
+            </div>
+
+            <div class="bands-grid">
+                
+                <div class="band-control">
+                    <label>الحلقة 1 (رقم)</label>
+                    <div class="color-select" id="b1">
+                        <!-- JS injected -->
+                    </div>
+                </div>
+
+                <div class="band-control">
+                    <label>الحلقة 2 (رقم)</label>
+                    <div class="color-select" id="b2"></div>
+                </div>
+
+                <div class="band-control hidden" id="group3">
+                    <label>الحلقة 3 (رقم)</label>
+                    <div class="color-select" id="b3"></div>
+                </div>
+
+                <div class="band-control">
+                    <label>المضاعف (Multiplier)</label>
+                    <div class="color-select" id="bm"></div>
+                </div>
+
+                <div class="band-control">
+                    <label>التفاوت (Tolerance)</label>
+                    <div class="color-select" id="bt"></div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="js/resistor-calc.js"></script>
+</body>
+</html>

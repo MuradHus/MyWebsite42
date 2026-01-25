@@ -1,0 +1,210 @@
+:root {
+    --bg-color: #121212;
+    --card-bg: #1e1e1e;
+    --accent-color: #bb86fc; /* Purple accent for art */
+    --accent-gold: #d4af37;
+    --text-color: #fff;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Cairo', sans-serif;
+    margin: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.header {
+    background: #000;
+    border-bottom: 2px solid var(--accent-color);
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.back-btn {
+    text-decoration: none;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.back-btn:hover { background: var(--accent-color); color: #000; }
+
+.workspace {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 2rem;
+    align-items: start;
+    padding-bottom: 3rem;
+}
+
+@media (max-width: 900px) {
+    .workspace { grid-template-columns: 1fr; }
+}
+
+/* Controls */
+.controls-panel {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid #333;
+}
+
+.btn-main {
+    width: 100%;
+    background: var(--accent-color);
+    color: #000;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 2rem;
+    transition: 0.3s;
+}
+
+.btn-main:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(187, 134, 252, 0.3); }
+
+/* Filter Cards */
+.filter-card {
+    background: #252525;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    border: 1px solid #444;
+}
+
+.filter-header {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #2a2a2a;
+}
+
+.filter-header .icon {
+    font-size: 1.2rem;
+    margin-left: 10px;
+}
+
+.filter-body {
+    padding: 15px;
+    display: block; /* Shown by default if toggle on, but logic can handle */
+    border-top: 1px solid #333;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: var(--accent-color);
+    margin-bottom: 10px;
+}
+
+/* Switches */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 24px;
+}
+
+.switch input { opacity: 0; width: 0; height: 0; }
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #555;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider { background-color: var(--accent-color); }
+input:checked + .slider:before { transform: translateX(16px); }
+.slider.round { border-radius: 34px; }
+.slider.round:before { border-radius: 50%; }
+
+/* Color Pair */
+.color-pair {
+    display: flex;
+    gap: 10px;
+}
+.color-pair div { flex: 1; }
+.color-pair input { width: 100%; height: 35px; border: none; background: none; cursor: pointer; }
+
+/* Canvas */
+.preview-panel {
+    display: flex;
+    justify-content: center;
+}
+
+.canvas-container {
+    width: 100%;
+    min-height: 400px;
+    background: #000;
+    border: 2px dashed #333;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+#fxCanvas {
+    max-width: 100%;
+    max-height: 80vh;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+
+.loading-text {
+    color: #666;
+    font-size: 1.2rem;
+}
+
+.btn-download {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--accent-gold);
+    color: var(--accent-gold);
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 2rem;
+    transition: 0.3s;
+}
+
+.btn-download:hover {
+    background: var(--accent-gold);
+    color: #000;
+}

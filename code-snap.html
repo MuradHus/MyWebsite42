@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مجمّل الأكواد - Code Snap</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/code-snap.css">
+</head>
+<body class="dark-mode">
+    
+    <header class="header">
+        <div class="container">
+            <a href="designs.html" class="back-btn">🔙 قسم التصميم</a>
+            <h1>مجمّل الأكواد (Code Snap)</h1>
+        </div>
+    </header>
+
+    <main class="container workspace">
+        
+        <!-- Controls -->
+        <section class="controls-panel">
+            
+            <div class="control-group">
+                <label>الكود البرمجي</label>
+                <textarea id="codeInput" rows="10" placeholder="// اكتب الكود هنا..." spellcheck="false">function helloWorld() {
+    console.log("Hello, Creative World!");
+    return true;
+}</textarea>
+            </div>
+
+            <div class="control-group">
+                <label>اسم الملف (للتجميل)</label>
+                <input type="text" id="fileName" value="script.js">
+            </div>
+
+            <div class="control-group">
+                <label>خلفية المشهد</label>
+                <div class="colors-grid">
+                    <div class="color-dot active" style="background: linear-gradient(135deg, #12c2e9, #c471ed, #f64f59)" data-bg="linear-gradient(135deg, #12c2e9, #c471ed, #f64f59)"></div>
+                    <div class="color-dot" style="background: linear-gradient(135deg, #FF9A9E, #FECFEF)" data-bg="linear-gradient(135deg, #FF9A9E, #FECFEF)"></div>
+                    <div class="color-dot" style="background: linear-gradient(135deg, #84fab0, #8fd3f4)" data-bg="linear-gradient(135deg, #84fab0, #8fd3f4)"></div>
+                    <div class="color-dot" style="background: #111" data-bg="#111"></div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                 <label>حجم البطانة (Padding)</label>
+                 <input type="range" id="paddingRange" min="20" max="100" value="60">
+            </div>
+
+            <button id="downloadBtn" class="btn-main">📸 التقاط صورة (PNG)</button>
+
+        </section>
+
+        <!-- Preview -->
+        <section class="preview-panel">
+            <div id="captureContainer" class="capture-container">
+                <div class="window-frame">
+                    <div class="window-header">
+                        <div class="dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <div class="window-title" id="previewFileName">script.js</div>
+                    </div>
+                    <div class="window-content">
+                        <!-- Code injected here -->
+                        <pre><code id="codeOutput"></code></pre>
+                    </div>
+                </div>
+            </div>
+            <p class="hint">الصورة النهائية ستكون بجودة عالية (Retina Quality)</p>
+        </section>
+
+    </main>
+
+    <!-- Canvas for Export -->
+    <canvas id="exportCanvas" style="display:none;"></canvas>
+
+    <script src="js/code-snap.js"></script>
+</body>
+</html>
