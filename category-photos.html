@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرض القسم - معرض الصور</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .category-page {
+            background: #050A1F;
+        }
+        .full-photo-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 10px;
+            border-radius: 15px;
+            transition: 0.3s;
+        }
+        .full-photo-card:hover {
+            transform: translateY(-5px);
+            border-color: #d4af37;
+        }
+        .full-photo-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="category-page">
+    <a href="photos.html" class="back-btn fixed-nav" style="left: 20px; right: auto;">⬅️ العودة للمعرض</a>
+    
+    <div class="container" style="margin-top: 80px;">
+        <header style="text-align: center; margin-bottom: 50px;">
+            <h1 id="categoryTitle" style="color: #d4af37; font-size: 2.5rem; text-shadow: 0 0 15px rgba(212, 175, 55, 0.3);">جاري التحميل...</h1>
+        </header>
+
+        <div id="photosGrid" class="grid">
+            <!-- Images dynamic load -->
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    <script>
+        async function loadCategory() {
+            const params = new URLSearchParams(window.location.search);
+            const category = params.get('type') || 'nature';
+            
+            const titles = {
+                'nature': 'صور الطبيعة - Nature Photos',
+                'cars': 'صور السيارات - Car Photos',
+                'robots': 'صور الروبوتات - Robot Photos',
+                'animals': 'صور الحيوانات - Animal Photos',
+                'space': 'صور الفضاء - Space Photos'
+            };
+            
+            document.getElementById('categoryTitle').innerText = titles[category] || category.toUpperCase();
+
+            const { data, error } = await _supabase
+                .from('photos')
+                .select('*')
+                .eq('category', category)
+                .order('created_at', { ascending: false });
+
+            const grid = document.getElementById('photosGrid');
+            grid.innerHTML = '';
+
+            if (data && data.length > 0) {
+                data.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'full-photo-card';
+                    div.innerHTML = `
+                        <img src="${item.image_url}" alt="${item.title}">
+                        <h3 style="color:#fff; text-align:center; margin-top:10px; font-size:1.1rem;">${item.title || 'بدون عنوان'}</h3>
+                    `;
+                    grid.appendChild(div);
+                });
+            } else {
+                grid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 50px;">
+                        <p style="color:#d4af37; font-size: 1.2rem;">لا توجد صور في هذا القسم حالياً في قاعدة البيانات.</p>
+                        <p style="color:#fff; opacity:0.6;">تأكد من إضافة صور في Supabase بالقسم المسمى: <b>${category}</b></p>
+                    </div>`;
+            }
+        }
+        window.onload = loadCategory;
+    </script>
+</body>
+</html>

@@ -1,62 +1,92 @@
-// Image Data Pool
-const allImages = [
-    '../Photos/GamesPhotos/____Earth.png',
-    '../Photos/GamesPhotos/_____Mars.png',
-    '../Photos/GamesPhotos/______neptune planet .png',
-    '../Photos/GamesPhotos/_____pppp.png',
-    '../Photos/GamesPhotos/_____sun.png',
-    '../Photos/GamesPhotos/_____zzuhl.png',
-    '../Photos/GamesPhotos/____moon.png',
-    '../Photos/GamesPhotos/____moshtry.png',
-    '../Photos/GamesPhotos/____zohra.png',
-    '../Photos/‏‏ClokPhotos/_19026f35-a998-4a60-8eea-b683d81c5be8-removebg-preview.png',
-    '../Photos/‏‏CarsPhotos/4.jpg',
-    '../Photos/‏‏CarsPhotos/1.png'
-];
-
-// Select 9 images for optimal 3D ring
-const cellCount = 9; 
-const selectedImages = allImages.slice(0, cellCount);
+// Photos Gallery Logic with Supabase
 
 const carousel = document.getElementById('carousel3D');
+let currentImages = [];
 
-// Build Carousel
-selectedImages.forEach((src) => {
-    const cell = document.createElement('div');
-    cell.className = 'carousel-cell';
-    const img = document.createElement('img');
-    // Fix path relative to HTML location vs JS location?
-    // HTML is in root, JS in /js. Images in /Photos.
-    // If photos.js is loaded in photos.html, paths should be relative to photos.html
-    // So 'Photos/...' is correct. 
-    // Wait, my `allImages` array above uses `../Photos` which might be wrong if this script is referenced by `src="js/photos.js"` in `photos.html`.
-    // The relative path is from the HTML file. So 'Photos/...'
+// Initialize Gallery
+async function initGallery() {
+    console.log("Initializing Supabase Gallery...");
     
-    // Correction:
-    const cleanSrc = src.replace('../', ''); // Just in case I messed up in the array above
-    img.src = cleanSrc;
+    // Fetch all images initially
+    await loadCategoryImages('all');
     
-    cell.appendChild(img);
-    carousel.appendChild(cell);
-});
-
-// Apply 3D Transforms
-const cells = document.querySelectorAll('.carousel-cell');
-const theta = 360 / cellCount;
-let radius = Math.round( (240 / 2) / Math.tan( Math.PI / cellCount ) ); 
-// 240 is cell width. This formula calculates distance to center of polygon.
-// Push it out a bit more for spacing
-radius += 50; 
-
-cells.forEach((cell, i) => {
-    const angle = theta * i;
-    cell.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
-});
-
-
-// Card Click Logic
-document.querySelectorAll('.photo-card').forEach(card => {
-    card.addEventListener('click', () => {
-        alert('سيتم إضافة هذا القسم قريباً: ' + card.querySelector('h2').innerText);
+    // Setup Navigation Card Clicks
+    document.querySelectorAll('.photo-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const category = card.getAttribute('data-category');
+            // Navigate to the dynamic category page
+            window.location.href = `category-photos.html?type=${category}`;
+        });
     });
-});
+}
+
+// Fetch images from Supabase
+async function loadCategoryImages(category) {
+    try {
+        let query = _supabase
+            .from('photos')
+            .select('*')
+            .order('created_at', { ascending: false });
+
+        if (category !== 'all') {
+            query = query.eq('category', category);
+        }
+
+        const { data, error } = await query;
+
+        if (error) throw error;
+
+        if (!data || data.length === 0) {
+            console.log("No images found for category:", category);
+            updateCarousel([]);
+            return;
+        }
+
+        currentImages = data;
+        updateCarousel(currentImages);
+
+    } catch (err) {
+        console.error("Error loading images:", err.message);
+        // If there's an error (like table not found yet), show a message
+        carousel.innerHTML = '<div style="color: #d4af37; text-align: center; width: 100%; font-size: 1.2rem;">يرجى التأكد من إنشاء الجدول "photos" في Supabase</div>';
+    }
+}
+
+// Update the 3D Carousel UI
+function updateCarousel(images) {
+    carousel.innerHTML = '';
+    
+    if (images.length === 0) {
+        carousel.innerHTML = '<div style="color: #d4af37; text-align: center; width: 100%; font-size: 1.2rem; margin-top: 50px;">قريباً.. سيتم رفع الصور هنا لهذا القسم</div>';
+        return;
+    }
+
+    // Limit to 12 for 3D performance
+    const displayCount = Math.min(images.length, 12);
+    const theta = 360 / displayCount;
+    const radius = Math.round( (240 / 2) / Math.tan( Math.PI / displayCount ) ) + 80;
+
+    for (let i = 0; i < displayCount; i++) {
+        const item = images[i];
+        const cell = document.createElement('div');
+        cell.className = 'carousel-cell';
+        
+        const img = document.createElement('img');
+        img.src = item.image_url;
+        img.alt = item.title || 'Gallery Image';
+        
+        // Setup lazy loading
+        img.loading = "lazy";
+        
+        cell.appendChild(img);
+        
+        // 3D positioning
+        const angle = theta * i;
+        cell.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
+        
+        carousel.appendChild(cell);
+    }
+}
+
+// Start
+document.addEventListener('DOMContentLoaded', initGallery);
