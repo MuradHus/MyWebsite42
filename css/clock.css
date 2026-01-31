@@ -12,6 +12,9 @@
     justify-content: space-between;
     align-items: center;
     z-index: 9999;
+    background: rgba(10, 10, 10, 0.8); /* Fixed bar background */
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
     pointer-events: none;
     direction: ltr; /* Force LTR container for layout control, but wait map matches user request */
     /* User: Seconds Right, Date Left. */
@@ -129,4 +132,57 @@
 .fading {
     transition: opacity 0.5s;
     opacity: 0;
+}
+
+/* Responsive Scaling */
+@media (max-width: 768px) {
+    .status-bar {
+        padding: 10px 15px;
+    }
+    
+    .date-container {
+        font-size: 0.9rem;
+        padding: 5px 12px;
+        letter-spacing: 0.5px;
+    }
+
+    .clock-container {
+        gap: 5px;
+    }
+
+    .digit {
+        width: 15px;
+        height: 28px;
+        margin: 0 1px;
+    }
+
+    .separator {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .status-bar {
+        padding: 8px 10px;
+        flex-direction: row; /* Keep on one line */
+        justify-content: space-between;
+    }
+
+    .date-container {
+        font-size: 0.75rem;
+        padding: 4px 8px;
+        white-space: nowrap;
+        max-width: 50%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .digit {
+        width: 12px;
+        height: 22px;
+    }
+    
+    .clock-container {
+        gap: 3px;
+    }
 }

@@ -163,20 +163,25 @@ animateCursor();
 
 // Card Click Logic (Placeholder)
 // Card Click Logic
+// Card Click Logic
 document.querySelectorAll(".card").forEach((card) => {
   card.addEventListener("click", () => {
     const category = card.getAttribute("data-category");
     
+    // Determine base path
+    const isRoot = !window.location.pathname.toLowerCase().includes('/html/');
+    const prefix = isRoot ? 'HTML/' : '';
+
     if (category === 'photos') {
-         window.location.href = 'photos.html';
+         window.location.href = prefix + 'photos.html';
     } else if (category === 'tools') {
-         window.location.href = 'tools.html';
+         window.location.href = prefix + 'tools.html';
     } else if (category === 'games') {
-         window.location.href = 'games.html';
+         window.location.href = prefix + 'games.html';
     } else if (category === 'designs') {
-         window.location.href = 'designs.html';
+         window.location.href = prefix + 'designs.html';
     } else if (category === 'articles') {
-         window.location.href = 'articles.html';
+         window.location.href = prefix + 'articles.html';
     } else {
          // Logic to navigate to other pages will be added later
          console.log(`Navigating to ${category} section...`);
@@ -213,42 +218,47 @@ const luckyBtn = document.getElementById('luckyStrikeBtn');
 if (luckyBtn) {
     luckyBtn.addEventListener('click', () => {
         // Expanded list with deep links
+        
+        // Determine base path
+        const isRoot = !window.location.pathname.toLowerCase().includes('/html/');
+        const prefix = isRoot ? 'HTML/' : '';
+
         const destinations = [
             // Games
-            'games.html?game=xo',
-            'games.html?game=snake',
-            'games.html?game=memory',
-            'games.html?game=simon',
-            'games.html?game=hockey',
-            'games.html?game=balance',
+            prefix + 'games.html?game=xo',
+            prefix + 'games.html?game=snake',
+            prefix + 'games.html?game=memory',
+            prefix + 'games.html?game=simon',
+            prefix + 'games.html?game=hockey',
+            prefix + 'games.html?game=balance',
             
             // Tools
-            'tools.html?tool=age',
-            'tools.html?tool=bmi',
-            'tools.html?tool=stopwatch',
-            'tools.html?tool=units',
-            'tools.html?tool=binary',
-            'tools.html?tool=color',
-            'tools.html?tool=speed',
-            'tools.html?tool=bricks',
-            'tools.html?tool=freefall',
+            prefix + 'tools.html?tool=age',
+            prefix + 'tools.html?tool=bmi',
+            prefix + 'tools.html?tool=stopwatch',
+            prefix + 'tools.html?tool=units',
+            prefix + 'tools.html?tool=binary',
+            prefix + 'tools.html?tool=color',
+            prefix + 'tools.html?tool=speed',
+            prefix + 'tools.html?tool=bricks',
+            prefix + 'tools.html?tool=freefall',
 
             // Photos Categories (Photos page handles categories?) 
             // Photos page structure suggests filtering by category but it's not fully clear if it supports URL param.
             // Let's assume standard page load for now or add a param if possible.
             // Looking at photos.html, it doesn't seem to have deep linking logic yet.
             // We will just link to the main page or specific hash if applicable.
-            'photos.html', 
+            prefix + 'photos.html', 
             
             // Designs
-            'designs.html',
+            prefix + 'designs.html',
 
             // Articles
-            'articles.html',
-            'articles.html?article=mathematics',
-            'articles.html?article=science',
-            'articles.html?article=technology',
-            'articles.html?article=ai'
+            prefix + 'articles.html',
+            prefix + 'articles.html?article=mathematics',
+            prefix + 'articles.html?article=science',
+            prefix + 'articles.html?article=technology',
+            prefix + 'articles.html?article=ai'
         ];
         
         const randomDest = destinations[Math.floor(Math.random() * destinations.length)];

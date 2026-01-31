@@ -82,7 +82,7 @@ function updateDigit(id, val) {
             segDiv.classList.remove('on');
             // Falling Logic: If was ON and now OFF -> Drop
             if (wasOn) {
-                spawnDebris(segDiv);
+                // spawnDebris(segDiv); // Disabled as requested
             }
         }
     });

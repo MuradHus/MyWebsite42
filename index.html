@@ -18,7 +18,12 @@
     <!-- Top Status Bar -->
     <div id="topStatusBar" class="status-bar">
         <!-- Date (Left) -->
-        <div id="dateContainer" class="date-container"></div>
+        <div class="status-left">
+            <button id="settingsToggle" class="settings-toggle-btn" aria-label="Settings">
+                <i class="fa-solid fa-gear"></i>
+            </button>
+            <div id="dateContainer" class="date-container"></div>
+        </div>
         
         <!-- Clock (Right) -->
         <div id="clockContainer" class="clock-container">
@@ -42,62 +47,6 @@
         </div>
     </div>
 
-    <!-- Right Sidebar -->
-    <aside class="sidebar">
-        <!-- Language Settings -->
-        <div class="sidebar-section">
-            <h3 data-tooltip-ar="اللغة" data-tooltip-en="Language">
-                <i class="fa-solid fa-earth-americas"></i>
-            </h3>
-            <div class="lang-options">
-                <button onclick="setLanguage('ar')" class="lang-btn" 
-                        data-tooltip-ar="العربية" data-tooltip-en="Arabic">
-                    ؏
-                </button>
-                <button onclick="setLanguage('en')" class="lang-btn" 
-                        data-tooltip-ar="الإنجليزية" data-tooltip-en="English">
-                    E
-                </button>
-                <button onclick="setLanguage('default')" class="lang-btn default-btn" 
-                        data-tooltip-ar="تلقائي" data-tooltip-en="Auto">
-                    ؏E
-                </button>
-            </div>
-        </div>
-
-        <!-- Lucky Strike -->
-        <div class="sidebar-section">
-            <button id="luckyStrikeBtn" class="lucky-btn" 
-                    data-tooltip-ar="ضربة حظ" data-tooltip-en="Lucky Strike">
-                <div class="icon"><i class="fa-solid fa-dice"></i></div>
-            </button>
-        </div>
-
-        <!-- Contact Us -->
-        <div class="sidebar-section contact-section">
-            <h3 data-tooltip-ar="تواصل معنا" data-tooltip-en="Contact Us">
-                <i class="fa-solid fa-address-book"></i>
-            </h3>
-            <div class="social-links">
-                <a href="#" class="social-icon telegram" data-tooltip-ar="تلجرام" data-tooltip-en="Telegram">
-                    <i class="fa-brands fa-telegram"></i>
-                </a>
-                <a href="#" class="social-icon whatsapp" data-tooltip-ar="واتساب" data-tooltip-en="WhatsApp">
-                    <i class="fa-brands fa-whatsapp"></i>
-                </a>
-                <a href="#" class="social-icon facebook" data-tooltip-ar="فيسبوك" data-tooltip-en="Facebook">
-                    <i class="fa-brands fa-facebook"></i>
-                </a>
-                <a href="#" class="social-icon snapchat" data-tooltip-ar="سناب شات" data-tooltip-en="Snapchat">
-                    <i class="fa-brands fa-snapchat"></i>
-                </a>
-                <a href="#" class="social-icon tiktok" data-tooltip-ar="تيك توك" data-tooltip-en="TikTok">
-                    <i class="fa-brands fa-tiktok"></i>
-                </a>
-            </div>
-        </div>
-    </aside>
-
     <!-- Physics Layer -->
     <div id="debrisLayer" class="debris-layer"></div>
 
@@ -113,7 +62,27 @@
             <div class="ar-text">مرحباً بكم في عالمي</div>
             <div class="en-text">Welcome to My World</div>
         </h1>
+        
+        <!-- AI Text Box -->
+        <div class="ai-text-container">
+            <div class="ai-box-border">
+                <span id="aiText" class="ai-text"></span><span class="cursor">|</span>
+            </div>
+        </div>
+
+        </div>
       </header>
+
+        <!-- Periodic AI Box (Formerly Fun Box) -->
+        <div class="ai-box-wrapper">
+             <div class="ai-box-line"></div>
+             <div id="aiBox" class="ai-box">
+                <i class="fa-solid fa-robot icon"></i>
+                <div class="content">
+                    <p id="aiBoxContent" class="ai-text">Loading AI Wisdom...</p>
+                </div>
+             </div>
+        </div>
 
       <div class="grid">
         <!-- Cards -->
@@ -224,7 +193,68 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
     <script src="js/clock.js"></script>
     
+
+    <div id="settingsPillContainer" class="settings-pill-container">
+        <!-- Main Vertical Track -->
+        <div class="main-track">
+            <!-- Items -->
+            <button class="pill-item" data-target="langSub" data-tooltip="Language">
+                <i class="fa-solid fa-earth-americas"></i>
+            </button>
+            <button class="pill-item" data-target="themeSub" data-tooltip="Theme">
+                <i class="fa-solid fa-palette"></i>
+            </button>
+            <button class="pill-item" data-target="toolsSub" data-tooltip="Tools">
+                <i class="fa-solid fa-toolbox"></i>
+            </button>
+            <button class="pill-item" data-target="contactSub" data-tooltip="Contact">
+                <i class="fa-solid fa-address-book"></i>
+            </button>
+        </div>
+
+        <!-- Sub Menus (Pop out to right) -->
+        <div class="sub-menus-layer">
+            <!-- Language Sub -->
+            <div id="langSub" class="sub-pill">
+                <button onclick="setLanguage('ar')" class="sub-item">العربية</button>
+                <button onclick="setLanguage('en')" class="sub-item">English</button>
+                <button onclick="setLanguage('default')" class="sub-item">Auto</button>
+            </div>
+
+            <!-- Theme Sub -->
+            <div id="themeSub" class="sub-pill">
+                <button class="sub-item theme-btn" data-theme="default"><i class="fa-solid fa-moon"></i></button>
+                <button class="sub-item theme-btn" data-theme="light"><i class="fa-solid fa-sun"></i></button>
+                <button class="sub-item theme-btn" data-theme="dark"><i class="fa-solid fa-star"></i></button>
+                <div class="sub-item color-wrapper">
+                    <input type="color" id="accentColorPicker" value="#d4af37">
+                </div>
+            </div>
+
+            <!-- Tools Sub -->
+            <div id="toolsSub" class="sub-pill">
+                <button id="luckyStrikeBtn" class="sub-item lucky-btn-sub">
+                    <i class="fa-solid fa-dice"></i>
+                </button>
+            </div>
+
+            <!-- Contact Sub -->
+            <div id="contactSub" class="sub-pill social-pill">
+                <a href="#" class="sub-item"><i class="fa-brands fa-telegram"></i></a>
+                <a href="#" class="sub-item"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#" class="sub-item"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" class="sub-item"><i class="fa-brands fa-snapchat"></i></a>
+                <a href="#" class="sub-item"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
+        </div>
+    </div>
+    
     <!-- Main Scripts -->
     <script src="js/script.js"></script>
+    
+    
+    <script src="js/theme-manager.js"></script>
+    <script src="js/gemini-service.js"></script>
+    <script src="js/sidebar.js"></script>
 </body>
 </html>
