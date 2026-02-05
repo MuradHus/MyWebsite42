@@ -15,17 +15,25 @@
 </head>
 <body class="dark-mode">
 
-    <!-- Top Status Bar -->
-    <div id="topStatusBar" class="status-bar">
-        <!-- Date (Left) -->
-        <div class="status-left">
-            <button id="settingsToggle" class="settings-toggle-btn" aria-label="Settings">
+    <!-- Fixed Navigation -->
+    <div class="nav-controls fixed-nav">
+        <!-- Clock Mini removed as requested -->
+        <div></div>
+        
+        <!-- Left Side: Date + Gear (Fixed positions via RTL) -->
+        <div class="nav-left-group" style="display: flex; align-items: center; gap: 10px; pointer-events: auto;">
+            <div id="dateContainer" class="date-container"></div>
+            <button id="settingsToggle" class="settings-gear" aria-label="Settings">
                 <i class="fa-solid fa-gear"></i>
             </button>
-            <div id="dateContainer" class="date-container"></div>
         </div>
+    </div>
+
+    <!-- Top Status Bar -->
+    <div id="topStatusBar" class="status-bar" style="background: transparent; border: none; backdrop-filter: none;">
+        <div></div> <!-- Spacer -->
         
-        <!-- Clock (Right) -->
+        <!-- Big Clock (Right) -->
         <div id="clockContainer" class="clock-container">
             <!-- Seconds (Right) -->
             <div class="digit-group" id="group-sec">

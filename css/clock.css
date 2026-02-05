@@ -23,19 +23,17 @@
 
 /* Date (Left) */
 .date-container {
-    font-family: 'Cinzel', serif;
-    font-size: 1.5rem; /* Larger */
-    color: #ffd700;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    background: rgba(20, 20, 20, 0.8); /* Bubble BG */
+    font-family: 'Cairo', sans-serif; /* Changed from Cinzel for better bilingual match */
+    font-size: 0.95rem; /* Reduced from 1.5rem */
+    color: var(--accent);
+    text-shadow: 0 0 10px var(--accent-glow);
+    background: rgba(20, 20, 20, 0.6);
     backdrop-filter: blur(5px);
-    padding: 10px 25px;
-    border-radius: 50px; /* Bubble Shape */
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    order: 1; /* Left */
+    padding: 5px 15px; /* Reduced padding */
+    border-radius: 20px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    white-space: nowrap;
 }
 
 /* Clock (Right) */

@@ -47,8 +47,9 @@ function updateTime() {
     // Date (Gold Dust Style Text)
     const dateEl = document.getElementById('dateContainer');
     if (dateEl) {
+        const currentLang = document.documentElement.lang || 'ar';
         const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-        dateEl.innerText = now.toLocaleDateString('ar-EG', options);
+        dateEl.innerText = now.toLocaleDateString(currentLang === 'ar' ? 'ar-EG' : 'en-US', options);
     }
 
     // Time Digits

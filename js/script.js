@@ -193,25 +193,69 @@ document.querySelectorAll(".card").forEach((card) => {
 
 // --- Sidebar Logic ---
 
-// 1. Language Toggle
+// --- Language Management (Advanced) ---
+
+function detectBrowserLanguage() {
+    const navLang = navigator.language || navigator.userLanguage;
+    return navLang.startsWith('ar') ? 'ar' : 'en';
+}
+
 function setLanguage(lang) {
-    document.body.classList.remove('lang-ar', 'lang-en');
+    const html = document.documentElement;
+    const body = document.body;
     
-    if (lang === 'ar') {
-        document.body.classList.add('lang-ar');
-    } else if (lang === 'en') {
-        document.body.classList.add('lang-en');
+    // Remove all language classes first
+    body.classList.remove('lang-ar', 'lang-en', 'lang-auto');
+    
+    let activeLang = lang;
+    
+    if (lang === 'auto') {
+        body.classList.add('lang-auto');
+        activeLang = detectBrowserLanguage();
+        // Even in auto, we pick one for display logic if we want "single lang"
+        body.classList.add('lang-' + activeLang);
+    } else {
+        body.classList.add('lang-' + lang);
     }
-    
-    // Optional: Save preference
+
+    // Performance & SEO: Update HTML lang and direction
+    html.lang = activeLang;
+    html.dir = activeLang === 'ar' ? 'rtl' : 'ltr';
+
+    // Accessibility: Update aria-hidden for texts
+    document.querySelectorAll('.ar-text').forEach(el => {
+        el.setAttribute('aria-hidden', activeLang !== 'ar');
+    });
+    document.querySelectorAll('.en-text').forEach(el => {
+        el.setAttribute('aria-hidden', activeLang !== 'en');
+    });
+
+    // Save preference
     localStorage.setItem('preferredLanguage', lang);
+    
+    // Update active state in settings pill if UI exists
+    updateLanguageUI(lang);
+
+    // Force date update if clock.js is present
+    if (typeof updateTime === 'function') {
+        updateTime();
+    }
+}
+
+function updateLanguageUI(activeLang) {
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        const btnLang = btn.getAttribute('onclick')?.match(/'([^']+)'/)?.[1];
+        if (btnLang === activeLang) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
 }
 
 // Load preference on start
-const savedLang = localStorage.getItem('preferredLanguage');
-if (savedLang) {
-    setLanguage(savedLang);
-}
+const savedLang = localStorage.getItem('preferredLanguage') || 'auto';
+setLanguage(savedLang);
 
 // 2. Lucky Strike Logic
 const luckyBtn = document.getElementById('luckyStrikeBtn');

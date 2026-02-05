@@ -11,7 +11,7 @@ const GeminiService = {
 
             return {
                 apiKey: secrets.find(s => s.key === 'GEMINI_API_KEY')?.value,
-                model: secrets.find(s => s.key === 'GEMINI_MODEL')?.value || 'gemini-2.5-flash',
+                model: secrets.find(s => s.key === 'GEMINI_MODEL')?.value || 'gemini-5.5-flash',
                 systemPrompt: secrets.find(s => s.key === 'GEMINI_SYSTEM_PROMPT')?.value || 'انت شخص ذكي جدا، قم باعطاء جملة ملهمة او حقيقة علمية او نكتة للمبرمجين باللغة العربية والانجليزية.'
             };
         } catch (error) {

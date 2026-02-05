@@ -54,10 +54,18 @@ body.dark-theme {
 
 body {
     font-family: 'Cairo', sans-serif;
-    background-color: var(--bg-main);
+    background-color: var(--bg-secondary);
     color: var(--text-main);
-    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
     transition: background-color 0.3s, color 0.3s;
+}
+
+body.tools-sub-page .container {
+    padding-top: 80px; /* Essential space for fixed nav */
 }
 
 /* Site Logo */
@@ -162,8 +170,25 @@ header h1 {
 
 @media (max-width: 480px) {
     .grid {
-        grid-template-columns: 1fr; /* Stack on very small screens */
-        gap: 1.2rem;
+        grid-template-columns: repeat(2, 1fr); /* Two columns on mobile */
+        gap: 0.8rem;
+        padding: 1rem 10px;
+    }
+    
+    .card {
+        padding: 0.8rem;
+    }
+    
+    .card-icon {
+        font-size: 2.5rem;
+    }
+    
+    .card h2 {
+        font-size: 1rem;
+    }
+
+    .card p {
+        font-size: 0.8rem;
     }
 }
 
@@ -325,18 +350,24 @@ header h1 {
 }
 
 /* Apply animation */
-.lucky-btn .icon {
-    font-size: 1.3rem;
-    display: inline-block;
-    animation: swing 60s infinite ease-in-out;
-}
 @media (max-width: 768px) {
     .header h1 {
         font-size: 2rem;
     }
+    
     .grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1.5rem;
+        grid-template-columns: repeat(2, 1fr); /* Force two columns on small screens */
+        gap: 1.2rem;
+        padding: 1rem 15px;
+    }
+
+    .nav-controls.fixed-nav {
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        z-index: 10005;
+        display: flex;
+        gap: 10px;
     }
 }
 
@@ -361,9 +392,7 @@ body.photos-page {
 .photos-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem;
-    padding-right: 90px; /* Space for sidebar */
-    padding-left: 30px;
+    padding: 2rem 20px; /* Balanced padding */
     padding-top: 20px; 
     position: relative;
     z-index: 2;
@@ -371,12 +400,23 @@ body.photos-page {
 
 .nav-controls.fixed-nav {
     position: fixed;
-    top: 20px;
-    left: 20px; /* Changed from right:20px to Move to top-left corner */
-    right: auto !important;
-    z-index: 1001;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 15px 20px;
+    z-index: 10005;
     display: flex;
-    gap: 10px;
+    justify-content: space-between; /* Gear left, Back right */
+    align-items: center;
+    background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%);
+    pointer-events: none; /* Let clicks through unless on items */
+    direction: rtl !important; /* Fixed: Back/Clock Right, Gear Left */
+}
+
+.nav-controls.fixed-nav .back-btn,
+.nav-controls.fixed-nav .settings-gear {
+    pointer-events: auto; /* Enable clicks for buttons */
 }
 
 .back-btn, .settings-gear {
@@ -505,8 +545,7 @@ body.tools-page {
 
 .tools-page .container,
 .tools-page > div {
-    padding-right: 90px; /* Space for sidebar */
-    padding-left: 30px; /* Space from left edge */
+    padding: 1rem 20px; /* Balanced padding */
 }
 
 .tools-header {
@@ -855,8 +894,7 @@ body.articles-page {
 }
 
 .articles-page .container {
-    padding-right: 90px;
-    padding-left: 30px;
+    padding: 1rem 20px; /* Balanced padding */
 }
 
 .articles-header {
@@ -1093,60 +1131,38 @@ body.articles-page {
     font-family: 'Segoe UI', sans-serif;
 }
 
-/* Bilingual Support (Refined v2) */
-
-/* Fonts */
-.en-text {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: block;
-    direction: ltr;
+/* Bilingual Support (Advanced v3) */
+.en-text, .ar-text {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    will-change: opacity, transform;
 }
 
-.ar-text {
-    display: block;
-    direction: rtl;
-}
+/* Default: Show only Arabic if no class is set (as fallback) */
+.en-text { display: none; }
+.ar-text { display: block; }
 
-/* Default State (Both visible and balanced) */
-.ar-text {
-    font-size: 1.1em;
-    opacity: 0.85;
-    transition: all 0.3s ease;
-}
-
-.en-text {
-    font-size: 1em; /* Increased from 0.9em */
-    opacity: 0.75;
-    margin-top: 0.3rem;
-    transition: all 0.3s ease;
-}
-
-/* Language States */
-
-/* Arabic Mode: Arabic clear, English faded/small */
+/* Arabic Mode: Show Arabic, Hide English */
 body.lang-ar .ar-text {
+    display: block;
     opacity: 1;
-    transform: scale(1.15); /* Slight Zoom */
-    font-weight: bold;
-    /* Color inherited from parent/theme */
 }
 body.lang-ar .en-text {
-    opacity: 0.15; /* Very faded - increased from 0.2 */
-    font-size: 0.75em;
-    filter: blur(0.8px); /* Stronger blur */
+    display: none !important;
 }
 
-/* English Mode: English clear, Arabic faded/small */
+/* English Mode: Show English, Hide Arabic */
 body.lang-en .en-text {
+    display: block;
     opacity: 1;
-    transform: scale(1.25); /* Bigger scale */
-    font-weight: bold;
-    /* Color inherited from parent/theme */
 }
 body.lang-en .ar-text {
-    opacity: 0.15; /* Very faded - increased from 0.2 */
-    font-size: 0.8em;
-    filter: blur(0.8px); /* Stronger blur */
+    display: none !important;
+}
+
+/* Auto/Both Mode: Specific context (like headers) might still want both, or we delegate to detected lang */
+body.lang-auto .ar-text,
+body.lang-auto .en-text {
+    display: block; /* Show both or based on JS detection class */
 }
 
 
@@ -1541,10 +1557,11 @@ body:not(.lang-ar):not(.lang-en) .lang-btn[data-tooltip-en="Auto"] {
 /* AI Box (Formerly Fun Box) */
 .ai-box-wrapper {
     position: relative;
-    max-width: 800px;
-    margin: 1.5rem auto 2rem;
-    padding: 0 1rem;
-    perspective: 1000px;
+    width: 100%;
+    max-width: 600px;
+    margin: 1rem auto;
+    padding: 0 15px;
+    box-sizing: border-box;
 }
 
 .ai-box-line {
@@ -1559,19 +1576,19 @@ body:not(.lang-ar):not(.lang-en) .lang-btn[data-tooltip-en="Auto"] {
 
 .ai-box {
     position: relative;
-    background: rgba(10, 10, 15, 0.85);
+    background: rgba(10, 10, 15, 0.9);
     border: 1px solid var(--accent);
     border-radius: 12px;
-    padding: 0.8rem 1.5rem; /* تقليل الحشو ليتناسب مع الأسطر القليلة */
+    padding: 0.8rem 1rem;
     display: flex;
     align-items: center;
-    gap: 1.2rem;
+    gap: 1rem;
     backdrop-filter: blur(10px);
     box-shadow: 0 0 20px var(--accent-glow);
     z-index: 1;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    height: auto; /* التأكد من أن الارتفاع تلقائي */
-    min-height: 50px; /* الحد الأدنى للارتفاع */
+    transition: all 0.4s ease;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .ai-box:hover {
@@ -1600,6 +1617,7 @@ body:not(.lang-ar):not(.lang-en) .lang-btn[data-tooltip-en="Auto"] {
     overflow-wrap: break-word;
     word-break: break-word;
     width: 100%;
+    text-align: center; /* Center text in box */
 }
 
 .ai-box .ar-text {
@@ -1649,12 +1667,12 @@ body.lang-en .ai-box .ar-text {
 /* --- NEW Dynamic Pill Menu --- */
 .settings-pill-container {
     position: fixed;
-    top: 80px; /* Below header roughly */
-    left: 40px; /* Align with date/button */
-    right: auto !important; /* Force Left Position */
+    top: 65px; /* Below top nav bar */
+    left: 20px; 
+    right: auto !important;
     z-index: 10000;
-    pointer-events: none; /* Initially hidden interaction */
-    direction: ltr; /* Force LTR inside pill to keep icons aligned */
+    pointer-events: none;
+    direction: ltr;
 }
 
 /* The Main Vertical Track */
@@ -1788,16 +1806,20 @@ body.lang-en .ai-box .ar-text {
 
 /* Mobile Adjustments */
 @media (max-width: 768px) {
+    .nav-controls.fixed-nav {
+        padding: 10px 15px;
+    }
+    
     .settings-pill-container {
         left: 15px;
-        top: 65px;
+        top: 60px;
     }
 }
 
 @media (max-width: 480px) {
     .settings-pill-container {
-        left: 10px;
-        top: 60px;
+        left: 15px;
+        top: 55px;
     }
     
     .sub-menus-layer {
