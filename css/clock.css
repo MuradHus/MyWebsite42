@@ -141,9 +141,7 @@
     }
     
     .date-container {
-        font-size: 0.9rem;
-        padding: 5px 12px;
-        letter-spacing: 0.5px;
+        display: none; /* Hide date on mobile as requested */
     }
 
     .clock-container {
@@ -163,18 +161,7 @@
 
 @media (max-width: 480px) {
     .status-bar {
-        padding: 8px 10px;
-        flex-direction: row; /* Keep on one line */
-        justify-content: space-between;
-    }
-
-    .date-container {
-        font-size: 0.75rem;
-        padding: 4px 8px;
-        white-space: nowrap;
-        max-width: 50%;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        padding: 5px 10px;
     }
 
     .digit {

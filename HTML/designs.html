@@ -12,63 +12,56 @@
 <body class="designs-page">
     
     <!-- Fixed Navigation -->
-    <a href="../index.html" class="back-btn fixed-nav" style="border-color: #d4af37; color: #d4af37;">🏠 الرئيسية</a>
+    <div class="nav-controls fixed-nav">
+        <a href="../index.html" class="back-btn">🏠 الرئيسية</a>
+        <button id="settingsToggle" class="settings-gear" aria-label="Settings">
+            <i class="fa-solid fa-gear"></i>
+        </button>
+    </div>
 
-    <!-- Right Sidebar -->
-    <aside class="sidebar">
-        <!-- Language Settings -->
-        <div class="sidebar-section">
-            <h3 data-tooltip-ar="اللغة" data-tooltip-en="Language">
+    <!-- Settings Pill (Shared across pages) -->
+    <div id="settingsPillContainer" class="settings-pill-container">
+        <div class="main-track">
+            <button class="pill-item" data-target="langSub" data-tooltip="Language">
                 <i class="fa-solid fa-earth-americas"></i>
-            </h3>
-            <div class="lang-options">
-                <button onclick="setLanguage('ar')" class="lang-btn" 
-                        data-tooltip-ar="العربية" data-tooltip-en="Arabic">
-                    ؏
-                </button>
-                <button onclick="setLanguage('en')" class="lang-btn" 
-                        data-tooltip-ar="الإنجليزية" data-tooltip-en="English">
-                    E
-                </button>
-                <button onclick="setLanguage('default')" class="lang-btn default-btn" 
-                        data-tooltip-ar="تلقائي" data-tooltip-en="Auto">
-                    عE
-                </button>
-            </div>
-        </div>
-
-        <!-- Lucky Strike -->
-        <div class="sidebar-section">
-            <button id="luckyStrikeBtn" class="lucky-btn" 
-                    data-tooltip-ar="ضربة حظ" data-tooltip-en="Lucky Strike">
-                <div class="icon"><i class="fa-solid fa-dice"></i></div>
+            </button>
+            <button class="pill-item" data-target="themeSub" data-tooltip="Theme">
+                <i class="fa-solid fa-palette"></i>
+            </button>
+            <button class="pill-item" data-target="toolsSub" data-tooltip="Tools">
+                <i class="fa-solid fa-toolbox"></i>
+            </button>
+            <button class="pill-item" data-target="contactSub" data-tooltip="Contact">
+                <i class="fa-solid fa-address-book"></i>
             </button>
         </div>
-
-        <!-- Contact Us -->
-        <div class="sidebar-section contact-section">
-            <h3 data-tooltip-ar="تواصل معنا" data-tooltip-en="Contact Us">
-                <i class="fa-solid fa-address-book"></i>
-            </h3>
-            <div class="social-links">
-                <a href="#" class="social-icon telegram" data-tooltip-ar="تلجرام" data-tooltip-en="Telegram">
-                    <i class="fa-brands fa-telegram"></i>
-                </a>
-                <a href="#" class="social-icon whatsapp" data-tooltip-ar="واتساب" data-tooltip-en="WhatsApp">
-                    <i class="fa-brands fa-whatsapp"></i>
-                </a>
-                <a href="#" class="social-icon facebook" data-tooltip-ar="فيسبوك" data-tooltip-en="Facebook">
-                    <i class="fa-brands fa-facebook"></i>
-                </a>
-                <a href="#" class="social-icon snapchat" data-tooltip-ar="سناب شات" data-tooltip-en="Snapchat">
-                    <i class="fa-brands fa-snapchat"></i>
-                </a>
-                <a href="#" class="social-icon tiktok" data-tooltip-ar="تيك توك" data-tooltip-en="TikTok">
-                    <i class="fa-brands fa-tiktok"></i>
-                </a>
+        <div class="sub-menus-layer">
+            <div id="langSub" class="sub-pill">
+                <button onclick="setLanguage('ar')" class="sub-item">العربية</button>
+                <button onclick="setLanguage('en')" class="sub-item">English</button>
+            </div>
+            <div id="themeSub" class="sub-pill">
+                <button class="sub-item theme-btn" data-theme="default"><i class="fa-solid fa-moon"></i></button>
+                <button class="sub-item theme-btn" data-theme="light"><i class="fa-solid fa-sun"></i></button>
+                <button class="sub-item theme-btn" data-theme="dark"><i class="fa-solid fa-star"></i></button>
+                <div class="sub-item color-wrapper">
+                    <input type="color" id="accentColorPicker" value="#d4af37">
+                </div>
+            </div>
+            <div id="toolsSub" class="sub-pill">
+                <button id="luckyStrikeBtn" class="sub-item lucky-btn-sub">
+                    <i class="fa-solid fa-dice"></i>
+                </button>
+            </div>
+            <div id="contactSub" class="sub-pill social-pill">
+                <a href="#" class="sub-item"><i class="fa-brands fa-telegram"></i></a>
+                <a href="#" class="sub-item"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#" class="sub-item"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" class="sub-item"><i class="fa-brands fa-snapchat"></i></a>
+                <a href="#" class="sub-item"><i class="fa-brands fa-tiktok"></i></a>
             </div>
         </div>
-    </aside>
+    </div>
 
     <div class="container" style="margin-top: 100px;">
         <header class="designs-header">
@@ -148,6 +141,8 @@
         </div>
     </div>
 
+    <script src="../js/theme-manager.js"></script>
+    <script src="../js/sidebar.js"></script>
     <script src="../js/script.js"></script>
 </body>
 </html>

@@ -6,6 +6,8 @@
     <title>مُولّد QR الملون</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/qr-generator.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- QR Logic Library (Better for custom drawing) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 </head>
@@ -13,10 +15,59 @@
     
     <header class="header">
         <div class="container">
-            <a href="designs.html" class="back-btn">🔙 قسم التصميم</a>
+            <div class="nav-controls fixed-nav">
+                <a href="designs.html" class="back-btn">🔙 قسم التصميم</a>
+                <button id="settingsToggle" class="settings-gear" aria-label="Settings">
+                    <i class="fa-solid fa-gear"></i>
+                </button>
+            </div>
             <h1>مُولّد QR الاحترافي</h1>
         </div>
     </header>
+
+    <!-- Settings Pill (Shared across pages) -->
+    <div id="settingsPillContainer" class="settings-pill-container">
+        <div class="main-track">
+            <button class="pill-item" data-target="langSub" data-tooltip="Language">
+                <i class="fa-solid fa-earth-americas"></i>
+            </button>
+            <button class="pill-item" data-target="themeSub" data-tooltip="Theme">
+                <i class="fa-solid fa-palette"></i>
+            </button>
+            <button class="pill-item" data-target="toolsSub" data-tooltip="Tools">
+                <i class="fa-solid fa-toolbox"></i>
+            </button>
+            <button class="pill-item" data-target="contactSub" data-tooltip="Contact">
+                <i class="fa-solid fa-address-book"></i>
+            </button>
+        </div>
+        <div class="sub-menus-layer">
+            <div id="langSub" class="sub-pill">
+                <button onclick="setLanguage('ar')" class="sub-item">العربية</button>
+                <button onclick="setLanguage('en')" class="sub-item">English</button>
+            </div>
+            <div id="themeSub" class="sub-pill">
+                <button class="sub-item theme-btn" data-theme="default"><i class="fa-solid fa-moon"></i></button>
+                <button class="sub-item theme-btn" data-theme="light"><i class="fa-solid fa-sun"></i></button>
+                <button class="sub-item theme-btn" data-theme="dark"><i class="fa-solid fa-star"></i></button>
+                <div class="sub-item color-wrapper">
+                    <input type="color" id="accentColorPicker" value="#d4af37">
+                </div>
+            </div>
+            <div id="toolsSub" class="sub-pill">
+                <button id="luckyStrikeBtn" class="sub-item lucky-btn-sub">
+                    <i class="fa-solid fa-dice"></i>
+                </button>
+            </div>
+            <div id="contactSub" class="sub-pill social-pill">
+                <a href="#" class="sub-item"><i class="fa-brands fa-telegram"></i></a>
+                <a href="#" class="sub-item"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#" class="sub-item"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" class="sub-item"><i class="fa-brands fa-snapchat"></i></a>
+                <a href="#" class="sub-item"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
+        </div>
+    </div>
 
     <main class="container workspace">
         
@@ -135,6 +186,9 @@
 
     </main>
 
+    <script src="../js/theme-manager.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/script.js"></script>
     <script src="../js/qr-generator.js"></script>
 </body>
 </html>

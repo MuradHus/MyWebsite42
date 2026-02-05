@@ -29,12 +29,10 @@ const ThemeManager = {
         // Remove all theme classes first
         this.body.classList.remove('light-theme', 'dark-theme');
         
+        // 'default' is the original Dark/Golden
         if (themeName !== 'default') {
             this.body.classList.add(`${themeName}-theme`);
         }
-
-        // Update Theme Icon in Sidebar
-        this.updateThemeIcon(themeName);
 
         // Save to local storage
         localStorage.setItem('siteTheme', themeName);
@@ -43,43 +41,36 @@ const ThemeManager = {
         this.updateActiveButton(themeName);
     },
 
-    updateThemeIcon(themeName) {
-        const iconContainer = document.querySelector('.sidebar-toggle-btn[data-tooltip-text*="Theme"] i, .sidebar-toggle-btn[data-tooltip-text*="المظهر"] i');
-        if (!iconContainer) return;
-
-        // Reset class
-        iconContainer.className = 'fa-solid';
-
-        switch(themeName) {
-            case 'light': iconContainer.classList.add('fa-sun'); break;
-            case 'dark': iconContainer.classList.add('fa-star'); break;
-            default: iconContainer.classList.add('fa-palette'); break;
-        }
-    },
-
     setCustomColor(color) {
-        // Update CSS Variables
+        if (!color) return;
+        
+        // Update CSS Variables on document root for maximum scope
         document.documentElement.style.setProperty('--accent', color);
         document.documentElement.style.setProperty('--border-color', color);
         
-        // Calculate lighter/glow variants (simplified)
-        // Ideally we'd use color manipulation lib, but for now strict set
+        // Generate variations (Glow)
+        const glowColor = this.hexToRgba(color, 0.5);
+        document.documentElement.style.setProperty('--accent-glow', glowColor);
         document.documentElement.style.setProperty('--accent-light', color); 
-        document.documentElement.style.setProperty('--accent-glow', `${color}80`); // 50% opacity hex
         
         localStorage.setItem('customAccent', color);
+        if (this.colorPicker) this.colorPicker.value = color;
+    },
+
+    hexToRgba(hex, alpha) {
+        const r = parseInt(hex.slice(1, 3), 16);
+        const g = parseInt(hex.slice(3, 5), 16);
+        const b = parseInt(hex.slice(5, 7), 16);
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
     },
 
     loadSettings() {
-        const savedTheme = localStorage.getItem('siteTheme');
-        if (savedTheme) {
-            this.setTheme(savedTheme);
-        }
+        const savedTheme = localStorage.getItem('siteTheme') || 'default';
+        this.setTheme(savedTheme);
 
         const savedColor = localStorage.getItem('customAccent');
         if (savedColor) {
             this.setCustomColor(savedColor);
-            if (this.colorPicker) this.colorPicker.value = savedColor;
         }
     },
 

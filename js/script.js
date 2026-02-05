@@ -185,7 +185,7 @@ document.querySelectorAll(".card").forEach((card) => {
     } else {
          // Logic to navigate to other pages will be added later
          console.log(`Navigating to ${category} section...`);
-         alert('قريباً: ' + card.querySelector('h2').innerText);
+         alert('قريباً في كوكب مرادو: ' + card.querySelector('h2').innerText);
     }
   });
 });
