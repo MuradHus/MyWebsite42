@@ -84,4 +84,9 @@ const ThemeManager = {
 
 document.addEventListener('DOMContentLoaded', () => {
     ThemeManager.init();
+    
+    // Load Google Analytics globally
+    const gaScript = document.createElement('script');
+    gaScript.src = (window.location.pathname.includes('/HTML/')) ? '../js/google-analytics.js' : 'js/google-analytics.js';
+    document.head.appendChild(gaScript);
 });
