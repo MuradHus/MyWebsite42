@@ -299,7 +299,8 @@ const ThemeManager = {
             const text = `📬 <b>ملاحظة وتقييم جديد</b>\n\n` +
                          `⭐ <b>التقييم:</b> ${stars} (${rating}/5)\n` +
                          `📍 <b>المكان:</b> ${location}\n` +
-                         `🔗 <b>الرابط:</b> ${window.location.href}\n\n` +
+                         `🔗 <b>الصفحة:</b> ${window.location.href}\n` +
+                         `🔗 <b>مُرادو:</b> {https://muradhus.github.io/Murado-42my}\n\n` +
                          `💬 <b>الرسالة:</b>\n${msg || "<i>(لم يتم كتابة رسالة)</i>"}`;
 
             const tgRes = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {

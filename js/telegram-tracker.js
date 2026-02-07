@@ -16,9 +16,13 @@
         
         return `
 🌐 زائر جديد!
+
 ⏰ الوقت: ${now.toLocaleString('ar-EG')}
+
 🌍 الدولة: ${locationData.country} | ${locationData.city}
+
 💻 المتصفح: ${browserInfo}
+
 📱 الدقة: ${screenRes}
         `.trim();
     }
