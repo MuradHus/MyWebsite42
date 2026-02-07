@@ -38,8 +38,38 @@ async function loadCategoryImages(category) {
 
         if (!data || data.length === 0) {
             console.log("No images found for category:", category);
+            if (category === 'all') {
+                 // If all is empty, set all badges to 0
+                 document.querySelectorAll('.photo-card .card-badge').forEach(badge => badge.textContent = '0');
+            }
             updateCarousel([]);
             return;
+        }
+
+        // If loading all (initial load), calculate counts for badges
+        if (category === 'all') {
+            const counts = {};
+            // Initialize known categories from DOM to 0
+            document.querySelectorAll('.photo-card').forEach(card => {
+                const cat = card.getAttribute('data-category');
+                if(cat) counts[cat] = 0;
+            });
+
+            // Count images
+            data.forEach(img => {
+                if (img.category) {
+                    counts[img.category] = (counts[img.category] || 0) + 1;
+                }
+            });
+
+            // Update badges
+            Object.keys(counts).forEach(cat => {
+                const card = document.querySelector(`.photo-card[data-category="${cat}"]`);
+                if (card) {
+                    const badge = card.querySelector('.card-badge');
+                    if (badge) badge.textContent = counts[cat];
+                }
+            });
         }
 
         currentImages = data;
