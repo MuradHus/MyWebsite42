@@ -164,7 +164,7 @@ const ThemeManager = {
                             .star-rating i.active, .star-rating i:hover, .star-rating i:hover ~ i { color: var(--accent, #d4af37); }
                         </style>
                         <span id="closeFeedback" style="position:absolute; top:15px; left:20px; font-size:30px; color:#fff; cursor:pointer; line-height:1;">&times;</span>
-                        <h2 style="color:var(--accent, #d4af37); margin:0 0 10px 0; font-size:24px; text-align:center;">ارسل ملاحظات ... نهتم برأيك</h2>
+                        <h2 style="color:var(--accent, #d4af37); margin:0 0 10px 0; font-size:24px; text-align:center;">نقدّر رأيك.. ساعدنا في تطوير كوكب مرادو</h2>
                         
                         <!-- Star Rating -->
                         <div class="star-rating" id="feedbackStars">
@@ -217,31 +217,64 @@ const ThemeManager = {
     getBreadcrumbs() {
         let path = "الرئيسية";
         const url = window.location.href;
+        const params = new URLSearchParams(window.location.search);
         
-        if (url.includes('photos.html')) path += " > الصور";
-        else if (url.includes('articles.html')) path += " > المقالات";
-        else if (url.includes('games.html')) path += " > الألعاب";
+        if (url.includes('photos.html')) {
+            path += " > الصور";
+            const cat = params.get('category');
+            if (cat) path += ` > ${cat}`;
+        }
+        else if (url.includes('articles.html')) {
+            path += " > المقالات";
+            const art = params.get('article');
+            if (art) {
+                // Map common keys to Arabic names for nicer display
+                const names = { 'mathematics': 'الرياضيات', 'science': 'العلوم', 'technology': 'التكنولوجيا', 'ai': 'الذكاء الاصطناعي' };
+                path += ` > ${names[art] || art}`;
+            }
+        }
+        else if (url.includes('games.html')) {
+            path += " > الألعاب";
+            const game = params.get('game');
+            if (game) {
+                const names = { 'xo': 'إكس أو', 'snake': 'الثعبان', 'memory': 'الذاكرة', 'simon': 'سايمون', 'hockey': 'الهوكي', 'balance': 'التوازن' };
+                path += ` > ${names[game] || game}`;
+            }
+        }
         else if (url.includes('designs.html')) path += " > التصاميم";
         else if (url.includes('tools.html')) {
             path += " > الأدوات";
-            // If a specific tool is open (detect from modal title or URL param)
-            const params = new URLSearchParams(window.location.search);
             const tool = params.get('tool');
             if (tool) {
-                const toolName = document.querySelector('#modal-body h2')?.innerText?.replace(/[^؀-ۿآ-ي ]/g, '').trim();
-                if (toolName) path += ` > ${toolName}`;
+                // Try to find the title inside the tool modal if open
+                let toolTitle = document.querySelector('#modal-body h2')?.innerText;
+                if (!toolTitle) {
+                    // Fallback to searching in the grid for the card with matching onclick
+                    const card = document.querySelector(`.tool-card[onclick*="'${tool}'"]`);
+                    toolTitle = card?.querySelector('h2 .ar-text')?.innerText || card?.querySelector('h2')?.innerText;
+                }
+                
+                if (toolTitle) {
+                    // Clean text from emojis/extra symbols
+                    const cleanTitle = toolTitle.replace(/[^؀-ۿآ-ي0-9a-zA-Z ]/g, '').trim();
+                    path += ` > ${cleanTitle}`;
+                }
             }
-        } else if (url.includes('flag-struggle.html')) path += " > الألعاب > صراع الأعلام";
+        } else if (url.includes('flag-struggle.html')) {
+            path += " > الألعاب > صراع الأعلام";
+        }
         
         return path;
     },
 
     async handleFeedbackSend() {
-        const msg = document.getElementById('feedbackMessage').value.trim();
         const rating = this.currentRating || 0;
-        
-        if (!msg && rating === 0) return;
+        if (rating === 0) {
+            alert('⚠️ يرجى اختيار تقييم بالنجوم قبل الإرسال.');
+            return;
+        }
 
+        const msg = document.getElementById('feedbackMessage').value.trim();
         const btn = document.getElementById('sendFeedbackBtn');
         btn.disabled = true;
         btn.innerHTML = 'جاري الإرسال...';
@@ -260,7 +293,7 @@ const ThemeManager = {
 
             if (!token || !chat) throw new Error('Creds missing');
 
-            const stars = "⭐".repeat(rating) || "بدون تقييم";
+            const stars = "⭐".repeat(rating);
             const location = this.getBreadcrumbs();
             
             const text = `📬 <b>ملاحظة وتقييم جديد</b>\n\n` +

@@ -1270,13 +1270,13 @@ body.lang-auto .en-text {
 
 /* Default mode adjustments for specific elements */
 .card h2 .en-text {
-  font-size: 1rem;
+  font-size: 1.4rem;
   color: var(--accent); /* Gold match */
   opacity: 0.8;
 }
 
 .header h1 .en-text {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   color: var(--accent);
   opacity: 0.8;
   letter-spacing: 2px;

@@ -9,7 +9,104 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Specific override for this page if needed */
+        /* Horizontal Photo Cards Styling */
+        .photos-page .grid {
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem 5%;
+        }
+
+        .photo-card {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            text-align: right !important;
+            padding: 1.5rem !important;
+            gap: 1.5rem;
+            background: rgba(15, 23, 42, 0.8) !important;
+            border: 1px solid rgba(212, 175, 55, 0.3) !important;
+            height: auto !important;
+            min-height: 100px;
+        }
+
+        .photo-card .card-icon {
+            font-size: 2.5rem !important;
+            margin-bottom: 0 !important;
+            background: rgba(212, 175, 55, 0.1);
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            flex-shrink: 0;
+            transition: 0.3s;
+        }
+
+        .photo-card:hover .card-icon {
+            transform: rotate(10deg) scale(1.1);
+            background: var(--accent);
+            color: #000;
+        }
+
+        .photo-card .card-content {
+            flex-grow: 1;
+        }
+
+        .photo-card h2 {
+            margin: 0 !important;
+            font-size: 1.3rem !important;
+        }
+
+        .photo-card .count-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(212, 175, 55, 0.05);
+            padding: 10px 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            min-width: 80px;
+        }
+
+        .photo-card .card-badge {
+            position: static !important;
+            margin-bottom: 4px;
+            font-size: 1.2rem !important;
+            padding: 0 !important;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            color: var(--accent) !important;
+        }
+
+        .photo-card .count-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 768px) {
+            .photos-page .grid {
+                grid-template-columns: 1fr !important;
+                padding: 1rem 15px;
+            }
+            .photo-card {
+                padding: 1rem !important;
+                gap: 1rem;
+            }
+            .photo-card .card-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.8rem !important;
+            }
+            .photo-card h2 {
+                font-size: 1.1rem !important;
+            }
+        }
     </style>
 </head>
 <body class="photos-page tools-sub-page">
@@ -91,102 +188,283 @@
             <div class="ar-text">الأقسام</div>
             <div class="en-text">Categories</div>
         </h2>
+        <style>
+            /* Specific Highlight for Nature Card (Placeholder for panorama) */
+            .photo-card[data-category="nature"] {
+                background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), 
+                            url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80') !important;
+                background-size: cover !important;
+                background-position: center !important;
+                border: 2px solid #8fce00 !important; /* Greenish gold border */
+            }
+
+            /* Specific Highlight for Cars Card */
+            .photo-card[data-category="cars"] {
+                background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), 
+                            url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=800&q=80') !important;
+                background-size: cover !important;
+                background-position: center !important;
+                border: 2px solid #ff4d4d !important; /* Red border for sports */
+            }
+
+            /* Specific Highlight for Robots Card */
+            .photo-card[data-category="robots"] {
+                background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), 
+                            url('https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80') !important;
+                background-size: cover !important;
+                background-position: center; /* Intentionally left without !important to match others if needed, but keeping consistent style */
+                background-position: center !important;
+                border: 2px solid #00f2ff !important; /* Cyan border for tech */
+            }
+
+            /* Specific Highlight for Animals Card */
+            .photo-card[data-category="animals"] {
+                background: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.6)), 
+                            url('https://images.unsplash.com/photo-1474511320723-9a56873867b5?auto=format&fit=crop&w=800&q=80') !important;
+                background-size: cover !important;
+                background-position: center !important;
+                border: 2px solid #ffaa00 !important; /* Orange border for wildlife */
+            }
+
+            /* Specific Highlight for Tech Card */
+            .photo-card[data-category="tech"] {
+                background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), 
+                            url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80') !important;
+                background-size: cover !important;
+                background-position: center !important;
+                border: 2px solid #00ce00 !important; /* Matrix Green border */
+            }
+
+            /* Specific Highlight for Space Card */
+            .photo-card[data-category="space"] {
+                background: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.6)), 
+                            url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80') !important;
+                background-size: cover !important;
+                background-position: center !important;
+                border: 2px solid #a600ff !important; /* Purple border */
+            }
+
+            /* Specific Highlight for Food Card */
+            .photo-card[data-category="food"] {
+                background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), 
+                            url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80') !important;
+                background-size: cover !important;
+                background-position: center !important;
+                border: 2px solid #ffcc00 !important; /* Golden/Yellow border */
+            }
+
+            /* Specific Highlight for Strange Card */
+            .photo-card[data-category="strange"] {
+                background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), 
+                            url('https://images.unsplash.com/photo-1516550893923-42d28e5677af?auto=format&fit=crop&w=800&q=80') !important;
+                background-size: cover !important;
+                background-position: center !important;
+                border: 2px solid #9900ff !important; /* Mystic Purple */
+            }
+
+            /* Specific Highlight for Monsters Card */
+            .photo-card[data-category="monsters"] {
+                background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), 
+                            url('https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&w=800&q=80') !important;
+                background-size: cover !important;
+                background-position: center !important;
+                border: 2px solid #ff0000 !important; /* Deep Red */
+            }
+
+            /* Specific Highlight for Cities Card */
+            .photo-card[data-category="cities"] {
+                background: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.6)), 
+                            url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=800&q=80') !important;
+                background-size: cover !important;
+                background-position: center !important;
+                border: 2px solid #00aaff !important; /* Sky Blue */
+            }
+
+            /* Specific Highlight for Sports Card */
+            .photo-card[data-category="sports"] {
+                background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), 
+                            url('https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=800&q=80') !important;
+                background-size: cover !important;
+                background-position: center !important;
+                border: 2px solid #ff6600 !important; /* Energetic Orange */
+            }
+
+            /* Specific Highlight for Art Card */
+            .photo-card[data-category="art"] {
+                background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), 
+                            url('https://images.unsplash.com/photo-1547891654-e66ed7ebb968?auto=format&fit=crop&w=800&q=80') !important;
+                background-size: cover !important;
+                background-position: center !important;
+                border: 2px solid #ff00cc !important; /* Artistic Pink */
+            }
+        </style>
         <div class="grid">
             <div class="card photo-card" data-category="nature">
-                <div class="card-badge">-</div>
                 <div class="card-icon">🌲</div>
-                <h2>
-                    <div class="ar-text">صور طبيعية</div>
-                    <div class="en-text">Nature Photos</div>
-                </h2>
+                <div class="card-content">
+                    <h2>
+                        <div class="ar-text">صور طبيعية</div>
+                        <div class="en-text">Nature Photos</div>
+                    </h2>
+                </div>
+                <div class="count-wrapper">
+                    <div class="card-badge">-</div>
+                    <span class="count-label">صورة</span>
+                </div>
             </div>
+
             <div class="card photo-card" data-category="cars">
-                <div class="card-badge">-</div>
                 <div class="card-icon">🏎️</div>
-                <h2>
-                    <div class="ar-text">صور سيارات</div>
-                    <div class="en-text">Car Photos</div>
-                </h2>
+                <div class="card-content">
+                    <h2>
+                        <div class="ar-text">صور سيارات</div>
+                        <div class="en-text">Car Photos</div>
+                    </h2>
+                </div>
+                <div class="count-wrapper">
+                    <div class="card-badge">-</div>
+                    <span class="count-label">صورة</span>
+                </div>
             </div>
+
             <div class="card photo-card" data-category="robots">
-                <div class="card-badge">-</div>
                 <div class="card-icon">🤖</div>
-                <h2>
-                    <div class="ar-text">صور روبوتات</div>
-                    <div class="en-text">Robot Photos</div>
-                </h2>
+                <div class="card-content">
+                    <h2>
+                        <div class="ar-text">صور روبوتات</div>
+                        <div class="en-text">Robot Photos</div>
+                    </h2>
+                </div>
+                <div class="count-wrapper">
+                    <div class="card-badge">-</div>
+                    <span class="count-label">صورة</span>
+                </div>
             </div>
+
             <div class="card photo-card" data-category="animals">
-                <div class="card-badge">-</div>
                 <div class="card-icon">🦁</div>
-                <h2>
-                    <div class="ar-text">صور حيوانات</div>
-                    <div class="en-text">Animal Photos</div>
-                </h2>
+                <div class="card-content">
+                    <h2>
+                        <div class="ar-text">صور حيوانات</div>
+                        <div class="en-text">Animal Photos</div>
+                    </h2>
+                </div>
+                <div class="count-wrapper">
+                    <div class="card-badge">-</div>
+                    <span class="count-label">صورة</span>
+                </div>
             </div>
+
              <div class="card photo-card" data-category="strange">
-                <div class="card-badge">-</div>
                 <div class="card-icon">👽</div>
-                <h2>
-                    <div class="ar-text">صور غريبة</div>
-                    <div class="en-text">Strange Photos</div>
-                </h2>
+                <div class="card-content">
+                    <h2>
+                        <div class="ar-text">صور غريبة</div>
+                        <div class="en-text">Strange Photos</div>
+                    </h2>
+                </div>
+                <div class="count-wrapper">
+                    <div class="card-badge">-</div>
+                    <span class="count-label">صورة</span>
+                </div>
             </div>
+
              <div class="card photo-card" data-category="monsters">
-                <div class="card-badge">-</div>
                 <div class="card-icon">👹</div>
-                <h2>
-                    <div class="ar-text">صور وحوش</div>
-                    <div class="en-text">Monster Photos</div>
-                </h2>
+                <div class="card-content">
+                    <h2>
+                        <div class="ar-text">صور وحوش</div>
+                        <div class="en-text">Monster Photos</div>
+                    </h2>
+                </div>
+                <div class="count-wrapper">
+                    <div class="card-badge">-</div>
+                    <span class="count-label">صورة</span>
+                </div>
             </div>
+
             <div class="card photo-card" data-category="cities">
-                <div class="card-badge">-</div>
                 <div class="card-icon">🏙️</div>
-                <h2>
-                    <div class="ar-text">صور مدن</div>
-                    <div class="en-text">City Photos</div>
-                </h2>
+                <div class="card-content">
+                    <h2>
+                        <div class="ar-text">صور مدن</div>
+                        <div class="en-text">City Photos</div>
+                    </h2>
+                </div>
+                <div class="count-wrapper">
+                    <div class="card-badge">-</div>
+                    <span class="count-label">صورة</span>
+                </div>
             </div>
+
             <div class="card photo-card" data-category="space">
-                <div class="card-badge">-</div>
                 <div class="card-icon">🚀</div>
-                <h2>
-                    <div class="ar-text">صور فضاء</div>
-                    <div class="en-text">Space Photos</div>
-                </h2>
+                <div class="card-content">
+                    <h2>
+                        <div class="ar-text">صور فضاء</div>
+                        <div class="en-text">Space Photos</div>
+                    </h2>
+                </div>
+                <div class="count-wrapper">
+                    <div class="card-badge">-</div>
+                    <span class="count-label">صورة</span>
+                </div>
             </div>
+
             <div class="card photo-card" data-category="food">
-                <div class="card-badge">-</div>
                 <div class="card-icon">🍕</div>
-                <h2>
-                    <div class="ar-text">صور طعام</div>
-                    <div class="en-text">Food Photos</div>
-                </h2>
+                <div class="card-content">
+                    <h2>
+                        <div class="ar-text">صور طعام</div>
+                        <div class="en-text">Food Photos</div>
+                    </h2>
+                </div>
+                <div class="count-wrapper">
+                    <div class="card-badge">-</div>
+                    <span class="count-label">صورة</span>
+                </div>
             </div>
+
             <div class="card photo-card" data-category="sports">
-                <div class="card-badge">-</div>
                 <div class="card-icon">⚽</div>
-                <h2>
-                    <div class="ar-text">صور رياضة</div>
-                    <div class="en-text">Sports Photos</div>
-                </h2>
+                <div class="card-content">
+                    <h2>
+                        <div class="ar-text">صور رياضة</div>
+                        <div class="en-text">Sports Photos</div>
+                    </h2>
+                </div>
+                <div class="count-wrapper">
+                    <div class="card-badge">-</div>
+                    <span class="count-label">صورة</span>
+                </div>
             </div>
+
             <div class="card photo-card" data-category="art">
-                <div class="card-badge">-</div>
                 <div class="card-icon">🎨</div>
-                <h2>
-                    <div class="ar-text">صور فن</div>
-                    <div class="en-text">Art Photos</div>
-                </h2>
+                <div class="card-content">
+                    <h2>
+                        <div class="ar-text">صور فن</div>
+                        <div class="en-text">Art Photos</div>
+                    </h2>
+                </div>
+                <div class="count-wrapper">
+                    <div class="card-badge">-</div>
+                    <span class="count-label">صورة</span>
+                </div>
             </div>
+
             <div class="card photo-card" data-category="tech">
-                <div class="card-badge">-</div>
                 <div class="card-icon">💻</div>
-                <h2>
-                    <div class="ar-text">صور تكنولوجيا</div>
-                    <div class="en-text">Technology Photos</div>
-                </h2>
+                <div class="card-content">
+                    <h2>
+                        <div class="ar-text">صور تكنولوجيا</div>
+                        <div class="en-text">Technology Photos</div>
+                    </h2>
+                </div>
+                <div class="count-wrapper">
+                    <div class="card-badge">-</div>
+                    <span class="count-label">صورة</span>
+                </div>
             </div>
         </div>
     </div>
