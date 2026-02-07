@@ -159,11 +159,23 @@ const ThemeManager = {
                     <div style="background:#151515; padding:30px; border-radius:20px; width:90%; max-width:480px; border:2px solid var(--accent, #d4af37); position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.8); animation: feedbackFadeIn 0.3s ease-out;">
                         <style>
                             @keyframes feedbackFadeIn { from { opacity:0; transform: scale(0.9); } to { opacity:1; transform: scale(1); } }
+                            .star-rating { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; flex-direction: row-reverse; }
+                            .star-rating i { font-size: 30px; color: #444; cursor: pointer; transition: 0.3s; }
+                            .star-rating i.active, .star-rating i:hover, .star-rating i:hover ~ i { color: var(--accent, #d4af37); }
                         </style>
                         <span id="closeFeedback" style="position:absolute; top:15px; left:20px; font-size:30px; color:#fff; cursor:pointer; line-height:1;">&times;</span>
                         <h2 style="color:var(--accent, #d4af37); margin:0 0 10px 0; font-size:24px; text-align:center;">ارسل ملاحظات ... نهتم برأيك</h2>
-                        <p style="color:#aaa; font-size:14px; margin-bottom:20px; text-align:center;">نحن نقدر وقتك. ساعدنا في تحسين تجربتك.</p>
-                        <textarea id="feedbackMessage" style="width:100%; height:140px; padding:15px; border-radius:12px; border:1px solid rgba(212,175,55,0.4); background:#202020; color:#fff; font-size:17px; margin-bottom:20px; box-sizing:border-box; outline:none; resize:none; transition: border-color 0.3s;" placeholder="اكتب ملاحظاتك هنا..."></textarea>
+                        
+                        <!-- Star Rating -->
+                        <div class="star-rating" id="feedbackStars">
+                            <i class="fa-solid fa-star" data-rating="5"></i>
+                            <i class="fa-solid fa-star" data-rating="4"></i>
+                            <i class="fa-solid fa-star" data-rating="3"></i>
+                            <i class="fa-solid fa-star" data-rating="2"></i>
+                            <i class="fa-solid fa-star" data-rating="1"></i>
+                        </div>
+
+                        <textarea id="feedbackMessage" style="width:100%; height:120px; padding:15px; border-radius:12px; border:1px solid rgba(212,175,55,0.4); background:#202020; color:#fff; font-size:17px; margin-bottom:15px; box-sizing:border-box; outline:none; resize:none; transition: border-color 0.3s;" placeholder="اكتب ملاحظاتك هنا..."></textarea>
                         <button id="sendFeedbackBtn" style="width:100%; padding:14px; border:none; border-radius:30px; background:linear-gradient(135deg, var(--accent, #d4af37), #b08e2a); color:#000; font-weight:bold; cursor:pointer; font-size:18px; transition:0.3s; box-shadow: 0 4px 15px rgba(212,175,55,0.3);">إرسال الملاحظات</button>
                     </div>
                 </div>
@@ -171,6 +183,18 @@ const ThemeManager = {
             document.body.insertAdjacentHTML('beforeend', html);
             modal = document.getElementById('feedbackModal');
             
+            // Star interaction
+            const stars = modal.querySelectorAll('.star-rating i');
+            stars.forEach(star => {
+                star.onclick = () => {
+                    const rating = star.dataset.rating;
+                    this.currentRating = rating;
+                    stars.forEach(s => {
+                        s.classList.toggle('active', s.dataset.rating <= rating);
+                    });
+                };
+            });
+
             document.getElementById('closeFeedback').onclick = () => modal.style.display = 'none';
             modal.onclick = (e) => { if(e.target === modal) modal.style.display = 'none'; };
             
@@ -180,13 +204,43 @@ const ThemeManager = {
             
             document.getElementById('sendFeedbackBtn').onclick = () => this.handleFeedbackSend();
         }
+        
+        // Reset state
+        this.currentRating = 0;
+        modal.querySelectorAll('.star-rating i').forEach(s => s.classList.remove('active'));
+        document.getElementById('feedbackMessage').value = '';
+        
         modal.style.display = 'flex';
         document.getElementById('feedbackMessage').focus();
     },
 
+    getBreadcrumbs() {
+        let path = "الرئيسية";
+        const url = window.location.href;
+        
+        if (url.includes('photos.html')) path += " > الصور";
+        else if (url.includes('articles.html')) path += " > المقالات";
+        else if (url.includes('games.html')) path += " > الألعاب";
+        else if (url.includes('designs.html')) path += " > التصاميم";
+        else if (url.includes('tools.html')) {
+            path += " > الأدوات";
+            // If a specific tool is open (detect from modal title or URL param)
+            const params = new URLSearchParams(window.location.search);
+            const tool = params.get('tool');
+            if (tool) {
+                const toolName = document.querySelector('#modal-body h2')?.innerText?.replace(/[^؀-ۿآ-ي ]/g, '').trim();
+                if (toolName) path += ` > ${toolName}`;
+            }
+        } else if (url.includes('flag-struggle.html')) path += " > الألعاب > صراع الأعلام";
+        
+        return path;
+    },
+
     async handleFeedbackSend() {
         const msg = document.getElementById('feedbackMessage').value.trim();
-        if (!msg) return;
+        const rating = this.currentRating || 0;
+        
+        if (!msg && rating === 0) return;
 
         const btn = document.getElementById('sendFeedbackBtn');
         btn.disabled = true;
@@ -206,7 +260,14 @@ const ThemeManager = {
 
             if (!token || !chat) throw new Error('Creds missing');
 
-            const text = `📬 <b>ملاحظة جديدة</b>\n\n⏰ الوقت: ${new Date().toLocaleString('ar-EG')}\n📍 الصفحة: ${window.location.href}\n\n💬 <b>الرسالة:</b>\n${msg}`;
+            const stars = "⭐".repeat(rating) || "بدون تقييم";
+            const location = this.getBreadcrumbs();
+            
+            const text = `📬 <b>ملاحظة وتقييم جديد</b>\n\n` +
+                         `⭐ <b>التقييم:</b> ${stars} (${rating}/5)\n` +
+                         `📍 <b>المكان:</b> ${location}\n` +
+                         `🔗 <b>الرابط:</b> ${window.location.href}\n\n` +
+                         `💬 <b>الرسالة:</b>\n${msg || "<i>(لم يتم كتابة رسالة)</i>"}`;
 
             const tgRes = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
                 method: 'POST',
@@ -216,8 +277,7 @@ const ThemeManager = {
 
             if (!tgRes.ok) throw new Error('Telegram Error');
 
-            alert('✅ شكرًا لك! تم استلام رسالتك بنجاح.');
-            document.getElementById('feedbackMessage').value = '';
+            alert('✅ شكرًا لك! تم استلام تقييمك بنجاح.');
             document.getElementById('feedbackModal').style.display = 'none';
         } catch (e) {
             console.error('Feedback Error:', e);
