@@ -1939,3 +1939,118 @@ body.lang-en .ai-box .ar-text {
     left: 50px;
   }
 }
+
+/* Main Page Card Backgrounds (Square/Card Aspect) */
+.card[data-category="photos"] {
+    background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)),
+                url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=600&q=80') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    border: 2px solid #d4af37 !important;
+    transition: transform 0.3s, background 0.3s !important;
+}
+
+.card[data-category="photos"]:hover {
+    background: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.8)),
+                url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=600&q=80') !important;
+    background-size: cover !important;
+    transform: translateY(-5px);
+}
+
+.card[data-category="articles"] {
+    background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)),
+                url('https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=600&q=80') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    border: 2px solid #a6e22e !important; /* Writing Green */
+}
+
+.card[data-category="articles"]:hover {
+    background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.9)),
+                url('https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=600&q=80') !important;
+    background-size: cover !important;
+}
+
+.card[data-category="books"] {
+    background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)),
+                url('https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=600&q=80') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    border: 2px solid #66d9ef !important; /* Reading Blue */
+}
+
+.card[data-category="books"]:hover {
+    background: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.8)),
+                url('https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=600&q=80') !important;
+    background-size: cover !important;
+}
+
+.card[data-category="games"] {
+    background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)),
+                url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    border: 2px solid #ff00ff !important; /* Retro Purple */
+}
+
+.card[data-category="games"]:hover {
+    background: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.8)),
+                url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80') !important;
+    background-size: cover !important;
+}
+
+.card[data-category="tools"] {
+    background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)),
+                url('https://images.unsplash.com/photo-1581287053822-fd7bf4f4bfec?auto=format&fit=crop&w=600&q=80') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    border: 2px solid #ff9900 !important; /* Industrial Orange */
+}
+
+.card[data-category="tools"]:hover {
+    background: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.8)),
+                url('https://images.unsplash.com/photo-1581287053822-fd7bf4f4bfec?auto=format&fit=crop&w=600&q=80') !important;
+    background-size: cover !important;
+}
+
+.card[data-category="competitions"] {
+    background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)),
+                url('https://images.unsplash.com/photo-1578269174936-2709b6aeb913?auto=format&fit=crop&w=600&q=80') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    border: 2px solid #ffd700 !important; /* Trophy Gold */
+}
+
+.card[data-category="competitions"]:hover {
+    background: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.8)),
+                url('https://images.unsplash.com/photo-1578269174936-2709b6aeb913?auto=format&fit=crop&w=600&q=80') !important;
+    background-size: cover !important;
+}
+
+.card[data-category="designs"] {
+    background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)),
+                url('https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=600&q=80') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    border: 2px solid #00ffff !important; /* Creative Cyan */
+}
+
+.card[data-category="designs"]:hover {
+    background: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.8)),
+                url('https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=600&q=80') !important;
+    background-size: cover !important;
+}
+
+.card[data-category="special"] {
+    background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)),
+                url('https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=600&q=80') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    border: 2px solid #e5e4e2 !important; /* Platinum/Silver */
+}
+
+.card[data-category="special"]:hover {
+    background: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.8)),
+                url('https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=600&q=80') !important;
+    background-size: cover !important;
+}

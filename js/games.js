@@ -106,72 +106,11 @@ let xoTurn = 'X';
 let xoActive = true;
 
 function initXO() {
-    xoBoard = ['', '', '', '', '', '', '', '', ''];
-    xoTurn = 'X'; // Player starts
-    xoActive = true;
-    
-    let html = '<div class="xo-board">';
-    for(let i=0; i<9; i++) {
-        html += `<div class="xo-cell" id="cell-${i}" onclick="playXO(${i})"></div>`;
-    }
-    html += '</div>';
-    container.innerHTML = html;
-    statusDiv.innerText = "دورك (X)";
+    // Redirect to the wrapper page containing the iframe
+    window.location.href = "xo-game.html";
 }
 
-function playXO(index) {
-    if (!xoActive || xoBoard[index] !== '') return;
-    
-    // Player Move
-    xoBoard[index] = 'X';
-    document.getElementById(`cell-${index}`).innerText = 'X';
-    document.getElementById(`cell-${index}`).classList.add('x');
-    
-    if (checkWinXO('X')) {
-        statusDiv.innerText = "فزت! 🎉";
-        xoActive = false;
-        return;
-    }
-    if (!xoBoard.includes('')) {
-        statusDiv.innerText = "تعادل!";
-        xoActive = false;
-        return;
-    }
-
-    // Computer Move
-    xoTurn = 'O';
-    statusDiv.innerText = "دور الكمبيوتر...";
-    setTimeout(() => {
-        if (!xoActive) return;
-        // Simple random AI
-        let available = xoBoard.map((v, i) => v === '' ? i : null).filter(v => v !== null);
-        let move = available[Math.floor(Math.random() * available.length)];
-        
-        xoBoard[move] = 'O';
-        document.getElementById(`cell-${move}`).innerText = 'O';
-        document.getElementById(`cell-${move}`).classList.add('o');
-        
-        if (checkWinXO('O')) {
-            statusDiv.innerText = "خسرت! 🤖";
-            xoActive = false;
-        } else if (!xoBoard.includes('')) {
-            statusDiv.innerText = "تعادل!";
-            xoActive = false;
-        } else {
-            statusDiv.innerText = "دورك (X)";
-            xoTurn = 'X';
-        }
-    }, 500);
-}
-
-function checkWinXO(player) {
-    const wins = [
-        [0,1,2], [3,4,5], [6,7,8], // Rows
-        [0,3,6], [1,4,7], [2,5,8], // Cols
-        [0,4,8], [2,4,6]           // Diagonals
-    ];
-    return wins.some(combo => combo.every(i => xoBoard[i] === player));
-}
+// Old XO functions removed - replaced by Phaser version
 
 
 // --- Memory Game ---
