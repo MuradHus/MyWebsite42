@@ -3,9 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>بطولة الأعلام: السباق والمعركة</title>
+    <title>بطولة الأعلام: السباق والمعركة - مرادو</title>
+    <meta name="description" content="انضم إلى سباق الأعلام المثير! بطولة عالمية تعتمد على الفيزياء والسرعة. اختر علمك المفضل وابدأ المعركة من أجل الصدارة.">
+    <meta name="keywords" content="صراع الأعلام, سباق الأعلام, بطولة الأعلام, ألعاب فيزيائية, مرادو">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="بطولة الأعلام: السباق والمعركة - مرادو">
+    <meta property="og:description" content="بطولة عالمية حماسية للأعلام! من سينتصر في النهاية؟">
+    <meta property="og:image" content="../images/logo.png">
+    <meta property="og:type" content="website">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../js/site-header-component.js"></script>
+    <script src="../js/theme-manager.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap');
         body {
@@ -83,6 +94,8 @@
     </style>
 </head>
 <body>
+
+    <site-header type="sub" back-url="../HTML/games.html"></site-header>
 
     <canvas id="game-canvas"></canvas>
 

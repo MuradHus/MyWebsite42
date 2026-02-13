@@ -196,8 +196,8 @@ document.querySelectorAll(".card").forEach((card) => {
 // --- Language Management (Advanced) ---
 
 function detectBrowserLanguage() {
-    const navLang = navigator.language || navigator.userLanguage;
-    return navLang.startsWith('ar') ? 'ar' : 'en';
+    const navLang = navigator.language || navigator.userLanguage || 'en';
+    return navLang.toLowerCase().startsWith('ar') ? 'ar' : 'en';
 }
 
 function setLanguage(lang) {
@@ -205,41 +205,41 @@ function setLanguage(lang) {
     const body = document.body;
     
     // Remove all language classes first
-    body.classList.remove('lang-ar', 'lang-en', 'lang-auto');
+    body.classList.remove('lang-ar', 'lang-en', 'lang-default');
     
     let activeLang = lang;
     
-    if (lang === 'auto') {
-        body.classList.add('lang-auto');
+    if (lang === 'default' || lang === 'auto') {
+        body.classList.add('lang-default');
         activeLang = detectBrowserLanguage();
-        // Even in auto, we pick one for display logic if we want "single lang"
-        body.classList.add('lang-' + activeLang);
-    } else {
-        body.classList.add('lang-' + lang);
     }
+    
+    body.classList.add('lang-' + activeLang);
 
-    // Performance & SEO: Update HTML lang and direction
+    // Performance & SEO: Update HTML attributes
     html.lang = activeLang;
     html.dir = activeLang === 'ar' ? 'rtl' : 'ltr';
 
-    // Accessibility: Update aria-hidden for texts
+    // Update translations
     document.querySelectorAll('.ar-text').forEach(el => {
+        el.style.display = activeLang === 'ar' ? '' : 'none';
         el.setAttribute('aria-hidden', activeLang !== 'ar');
     });
     document.querySelectorAll('.en-text').forEach(el => {
+        el.style.display = activeLang === 'en' ? '' : 'none';
         el.setAttribute('aria-hidden', activeLang !== 'en');
     });
 
     // Save preference
     localStorage.setItem('preferredLanguage', lang);
     
-    // Update active state in settings pill if UI exists
+    // Update UI components
     updateLanguageUI(lang);
 
-    // Force date update if clock.js is present
-    if (typeof updateTime === 'function') {
-        updateTime();
-    }
+    // Trigger updates in other components
+    window.dispatchEvent(new CustomEvent('languageChanged', { detail: { language: activeLang } }));
+    
+    if (typeof updateTime === 'function') updateTime();
 }
 
 function updateLanguageUI(activeLang) {
@@ -258,55 +258,51 @@ const savedLang = localStorage.getItem('preferredLanguage') || 'auto';
 setLanguage(savedLang);
 
 // 2. Lucky Strike Logic
+window.generateLuckyMessage = function() {
+    // Expanded list with deep links
+    
+    // Determine base path
+    const isRoot = !window.location.pathname.toLowerCase().includes('/html/');
+    const prefix = isRoot ? 'HTML/' : '';
+
+    const destinations = [
+        // Games
+        prefix + 'games.html?game=xo',
+        prefix + 'games.html?game=snake',
+        prefix + 'games.html?game=memory',
+        prefix + 'games.html?game=simon',
+        prefix + 'games.html?game=hockey',
+        prefix + 'games.html?game=balance',
+        
+        // Tools
+        prefix + 'tools.html?tool=age',
+        prefix + 'tools.html?tool=bmi',
+        prefix + 'tools.html?tool=stopwatch',
+        prefix + 'tools.html?tool=units',
+        prefix + 'tools.html?tool=binary',
+        prefix + 'tools.html?tool=color',
+        prefix + 'tools.html?tool=speed',
+        prefix + 'tools.html?tool=bricks',
+        prefix + 'tools.html?tool=freefall',
+
+        prefix + 'photos.html', 
+        prefix + 'designs.html',
+        prefix + 'articles.html',
+        prefix + 'articles.html?article=mathematics',
+        prefix + 'articles.html?article=science',
+        prefix + 'articles.html?article=technology',
+        prefix + 'articles.html?article=ai'
+    ];
+    
+    const randomDest = destinations[Math.floor(Math.random() * destinations.length)];
+    window.location.href = randomDest;
+};
+
 const luckyBtn = document.getElementById('luckyStrikeBtn');
 if (luckyBtn) {
-    luckyBtn.addEventListener('click', () => {
-        // Expanded list with deep links
-        
-        // Determine base path
-        const isRoot = !window.location.pathname.toLowerCase().includes('/html/');
-        const prefix = isRoot ? 'HTML/' : '';
-
-        const destinations = [
-            // Games
-            prefix + 'games.html?game=xo',
-            prefix + 'games.html?game=snake',
-            prefix + 'games.html?game=memory',
-            prefix + 'games.html?game=simon',
-            prefix + 'games.html?game=hockey',
-            prefix + 'games.html?game=balance',
-            
-            // Tools
-            prefix + 'tools.html?tool=age',
-            prefix + 'tools.html?tool=bmi',
-            prefix + 'tools.html?tool=stopwatch',
-            prefix + 'tools.html?tool=units',
-            prefix + 'tools.html?tool=binary',
-            prefix + 'tools.html?tool=color',
-            prefix + 'tools.html?tool=speed',
-            prefix + 'tools.html?tool=bricks',
-            prefix + 'tools.html?tool=freefall',
-
-            // Photos Categories (Photos page handles categories?) 
-            // Photos page structure suggests filtering by category but it's not fully clear if it supports URL param.
-            // Let's assume standard page load for now or add a param if possible.
-            // Looking at photos.html, it doesn't seem to have deep linking logic yet.
-            // We will just link to the main page or specific hash if applicable.
-            prefix + 'photos.html', 
-            
-            // Designs
-            prefix + 'designs.html',
-
-            // Articles
-            prefix + 'articles.html',
-            prefix + 'articles.html?article=mathematics',
-            prefix + 'articles.html?article=science',
-            prefix + 'articles.html?article=technology',
-            prefix + 'articles.html?article=ai'
-        ];
-        
-        const randomDest = destinations[Math.floor(Math.random() * destinations.length)];
-        window.location.href = randomDest;
-    });
+    luckyBtn.addEventListener('click', () => window.generateLuckyMessage());
 }
+
+// Ensure setLanguage is globally accessible (already is, but just in case)
+window.setLanguage = setLanguage;
 

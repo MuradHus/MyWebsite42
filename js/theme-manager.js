@@ -7,6 +7,7 @@ const ThemeManager = {
         this.bindEvents();
         this.loadSettings();
         this.initFeedbackWidget();
+        this.initAssetProtection();
     },
 
     cacheDOM() {
@@ -40,11 +41,26 @@ const ThemeManager = {
         if (!color) return;
         document.documentElement.style.setProperty('--accent', color);
         document.documentElement.style.setProperty('--border-color', color);
-        const glowColor = this.hexToRgba(color, 0.5);
+        
+        // Generate lighter accent color
+        const lightColor = this.lightenColor(color, 20);
+        document.documentElement.style.setProperty('--accent-light', lightColor);
+        
+        // Generate glow with adaptive opacity
+        const glowColor = this.hexToRgba(color, 0.4);
         document.documentElement.style.setProperty('--accent-glow', glowColor);
-        document.documentElement.style.setProperty('--accent-light', color); 
+        
         localStorage.setItem('customAccent', color);
         if (this.colorPicker) this.colorPicker.value = color;
+    },
+
+    lightenColor(hex, percent) {
+        const num = parseInt(hex.replace('#', ''), 16);
+        const amt = Math.round(2.55 * percent);
+        const R = Math.min(255, (num >> 16) + amt);
+        const G = Math.min(255, ((num >> 8) & 0x00FF) + amt);
+        const B = Math.min(255, (num & 0x0000FF) + amt);
+        return `#${(0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1)}`;
     },
 
     hexToRgba(hex, alpha) {
@@ -66,6 +82,32 @@ const ThemeManager = {
         this.themeBtns.forEach(btn => {
             btn.classList.toggle('active', btn.dataset.theme === activeTheme);
         });
+    },
+
+    // --- Asset Protection (Security Fix) ---
+    initAssetProtection() {
+        // 1. Disable Context Menu (Right Click)
+        document.addEventListener('contextmenu', (e) => {
+            // Allow context menu for input/textarea just in case, but block others
+            if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+                e.preventDefault();
+                return false;
+            }
+        }, false);
+
+        // 2. Disable Image Dragging via JS
+        document.addEventListener('dragstart', (e) => {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+                return false;
+            }
+        }, false);
+
+        // 3. Disable Long Press on Mobile (iOS/Android)
+        // We do this by adding a CSS class globally since it's cleaner
+        document.documentElement.style.webkitTouchCallout = 'none';
+        
+        console.log('ThemeManager: Asset protection enabled.');
     },
 
     // --- Feedback Widget Logic (Reinforced) ---
@@ -322,6 +364,10 @@ const ThemeManager = {
         }
     }
 };
+
+// --- Global Exports ---
+window.applyTheme = (theme) => ThemeManager.setTheme(theme);
+window.setAccentColor = (color) => ThemeManager.setCustomColor(color);
 
 document.addEventListener('DOMContentLoaded', () => {
     ThemeManager.init();

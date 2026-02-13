@@ -1,67 +1,27 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قسم التصميم</title>
+    <title>قسم التصميم والإبداع - مرادو</title>
+    <meta name="description" content="اكتشف مجموعة من الأدوات الإبداعية لتحرير الصور، تصميم الموك-أب، تنسيق الأكواد، وإنشاء بطاقات تعريف رقمية احترافية في منصة مرادو.">
+    <meta name="keywords" content="تصميم جرافيك, أدوات تصميم, تحرير الصور, موك أب, مرادو">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="قسم التصميم والإبداع - مرادو">
+    <meta property="og:description" content="مركزك المتكامل للأدوات الإبداعية وتعديل الصور باحترافية.">
+    <meta property="og:image" content="../images/logo.png">
+    <meta property="og:type" content="website">
     <!-- Google Fonts: Cairo -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="../js/site-header-component.js"></script>
 </head>
 <body class="designs-page tools-sub-page">
     
-    <!-- Fixed Navigation -->
-    <div class="nav-controls fixed-nav">
-        <a href="../index.html" class="back-btn">🏠 الرئيسية</a>
-        <button id="settingsToggle" class="settings-gear" aria-label="Settings">
-            <i class="fa-solid fa-gear"></i>
-        </button>
-    </div>
-
-    <!-- Settings Pill (Shared across pages) -->
-    <div id="settingsPillContainer" class="settings-pill-container">
-        <div class="main-track">
-            <button class="pill-item" data-target="langSub" data-tooltip="Language">
-                <i class="fa-solid fa-earth-americas"></i>
-            </button>
-            <button class="pill-item" data-target="themeSub" data-tooltip="Theme">
-                <i class="fa-solid fa-palette"></i>
-            </button>
-            <button class="pill-item" data-target="toolsSub" data-tooltip="Tools">
-                <i class="fa-solid fa-toolbox"></i>
-            </button>
-            <button class="pill-item" data-target="contactSub" data-tooltip="Contact">
-                <i class="fa-solid fa-address-book"></i>
-            </button>
-        </div>
-        <div class="sub-menus-layer">
-            <div id="langSub" class="sub-pill">
-                <button onclick="setLanguage('ar')" class="sub-item">العربية</button>
-                <button onclick="setLanguage('en')" class="sub-item">English</button>
-            </div>
-            <div id="themeSub" class="sub-pill">
-                <button class="sub-item theme-btn" data-theme="default"><i class="fa-solid fa-moon"></i></button>
-                <button class="sub-item theme-btn" data-theme="light"><i class="fa-solid fa-sun"></i></button>
-                <button class="sub-item theme-btn" data-theme="dark"><i class="fa-solid fa-star"></i></button>
-                <div class="sub-item color-wrapper">
-                    <input type="color" id="accentColorPicker" value="#d4af37">
-                </div>
-            </div>
-            <div id="toolsSub" class="sub-pill">
-                <button id="luckyStrikeBtn" class="sub-item lucky-btn-sub">
-                    <i class="fa-solid fa-dice"></i>
-                </button>
-            </div>
-            <div id="contactSub" class="sub-pill social-pill">
-                <a href="#" class="sub-item"><i class="fa-brands fa-telegram"></i></a>
-                <a href="#" class="sub-item"><i class="fa-brands fa-whatsapp"></i></a>
-                <a href="#" class="sub-item"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#" class="sub-item"><i class="fa-brands fa-snapchat"></i></a>
-                <a href="#" class="sub-item"><i class="fa-brands fa-tiktok"></i></a>
-            </div>
-        </div>
-    </div>
+    <!-- Web Component: Site Header & Navigation -->
+    <site-header type="sub" back-url="../index.html"></site-header>
 
     <div class="container" style="margin-top: 100px;">
         <header class="designs-header">
@@ -165,3 +125,6 @@
     <script src="../js/script.js"></script>
 </body>
 </html>
+
+
+

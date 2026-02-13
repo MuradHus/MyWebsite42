@@ -3,71 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>محلل المقاومات - Resistor Calculator</title>
+    <title>محلل المقاومات الكهربائية - مرادو</title>
+    <meta name="description" content="أداة هندسية دقيقة لحساب قيمة المقاومات الكهربائية من خلال ألوان الحلقات (4 أو 5 حلقات) مع عرض النتائج بشكل مرئي وجذاب.">
+    <meta name="keywords" content="حساب المقاومات, ألوان المقاومات, Resistor Calculator, هندسة كهربائية, مرادو">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="محلل المقاومات الكهربائية - مرادو">
+    <meta property="og:description" content="حلل واحسب قيم المقاومات الكهربائية بسهولة ودقة عبر الألوان.">
+    <meta property="og:image" content="../images/logo.png">
+    <meta property="og:type" content="website">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/resistor-calc.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="../js/site-header-component.js"></script>
 </head>
 <body class="dark-mode tools-sub-page">
     
-    <!-- Fixed Navigation -->
-    <div class="nav-controls fixed-nav">
-        <a href="designs.html" class="back-btn">🔙 قسم التصميم</a>
-        <button id="settingsToggle" class="settings-gear" aria-label="Settings">
-            <i class="fa-solid fa-gear"></i>
-        </button>
-    </div>
+    <site-header type="sub" back-url="../HTML/designs.html"></site-header>
 
     <header class="header">
         <div class="container">
             <h1>محلل المقاومات الاحترافي</h1>
         </div>
     </header>
-
-    <!-- Settings Pill (Shared across pages) -->
-    <div id="settingsPillContainer" class="settings-pill-container">
-        <div class="main-track">
-            <button class="pill-item" data-target="langSub" data-tooltip="Language">
-                <i class="fa-solid fa-earth-americas"></i>
-            </button>
-            <button class="pill-item" data-target="themeSub" data-tooltip="Theme">
-                <i class="fa-solid fa-palette"></i>
-            </button>
-            <button class="pill-item" data-target="toolsSub" data-tooltip="Tools">
-                <i class="fa-solid fa-toolbox"></i>
-            </button>
-            <button class="pill-item" data-target="contactSub" data-tooltip="Contact">
-                <i class="fa-solid fa-address-book"></i>
-            </button>
-        </div>
-        <div class="sub-menus-layer">
-            <div id="langSub" class="sub-pill">
-                <button onclick="setLanguage('ar')" class="sub-item">العربية</button>
-                <button onclick="setLanguage('en')" class="sub-item">English</button>
-            </div>
-            <div id="themeSub" class="sub-pill">
-                <button class="sub-item theme-btn" data-theme="default"><i class="fa-solid fa-moon"></i></button>
-                <button class="sub-item theme-btn" data-theme="light"><i class="fa-solid fa-sun"></i></button>
-                <button class="sub-item theme-btn" data-theme="dark"><i class="fa-solid fa-star"></i></button>
-                <div class="sub-item color-wrapper">
-                    <input type="color" id="accentColorPicker" value="#d4af37">
-                </div>
-            </div>
-            <div id="toolsSub" class="sub-pill">
-                <button id="luckyStrikeBtn" class="sub-item lucky-btn-sub">
-                    <i class="fa-solid fa-dice"></i>
-                </button>
-            </div>
-            <div id="contactSub" class="sub-pill social-pill">
-                <a href="#" class="sub-item"><i class="fa-brands fa-telegram"></i></a>
-                <a href="#" class="sub-item"><i class="fa-brands fa-whatsapp"></i></a>
-                <a href="#" class="sub-item"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#" class="sub-item"><i class="fa-brands fa-snapchat"></i></a>
-                <a href="#" class="sub-item"><i class="fa-brands fa-tiktok"></i></a>
-            </div>
-        </div>
-    </div>
 
     <main class="container workspace">
         

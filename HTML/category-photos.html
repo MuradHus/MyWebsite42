@@ -3,113 +3,322 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عرض القسم - معرض الصور</title>
+    <title>تصفح الأقسام - معرض مرادو للصور</title>
+    <meta name="description" content="تصفح معرض الصور حسب التصنيف: طبيعة، فضاء، سيارات، وغيرها. صور عالية الجودة ومنظمة بعناية.">
+    <meta name="keywords" content="تصنيفات الصور, معرض صور, صور طبيعة, صور فضاء, مرادو">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="تصفح الأقسام - معرض مرادو للصور">
+    <meta property="og:description" content="استكشف مئات الصور الاحترافية المصنفة بدقة في معرض مرادو الإلكتروني.">
+    <meta property="og:image" content="../images/logo.png">
+    <meta property="og:type" content="website">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .category-page {
-            background: #050A1F;
+            background: #050a14; /* Deep dark background */
         }
+        
+        /* Masonry Layout Implementation */
+        .masonry-grid {
+            column-count: 4;
+            column-gap: 20px;
+            padding: 20px;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
         .full-photo-card {
+            break-inside: avoid;
+            margin-bottom: 20px;
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(212, 175, 55, 0.1);
-            padding: 5px;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            padding: 0;
             border-radius: 12px;
-            transition: 0.3s;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInScale 0.6s forwards;
         }
+
+        @keyframes fadeInScale {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .full-photo-card:hover {
-            transform: translateY(-3px) scale(1.02);
+            transform: translateY(-5px) scale(1.02);
             border-color: #d4af37;
             background: rgba(255, 255, 255, 0.07);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(212, 175, 55, 0.2);
+            z-index: 10;
         }
+
         .full-photo-card img {
             width: 100%;
-            height: 180px; /* Reduced height */
-            object-fit: cover;
-            border-radius: 8px;
+            height: auto; /* Allow natural height for masonry */
+            object-fit: contain;
+            border-radius: 0;
             display: block;
+            transition: transform 0.6s ease;
         }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* More columns */
-            gap: 15px;
-            padding: 20px;
+
+        .full-photo-card:hover img {
+            transform: scale(1.05);
         }
+
+        .photo-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 20px 15px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .full-photo-card:hover .photo-overlay {
+            opacity: 1;
+        }
+
         .photo-title {
             color: #fff;
+            text-align: right;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Lightbox (Modal) Styles */
+        .lightbox-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 10000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 8px;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+        }
+
+        /* Updated Lightbox Frame Style */
+        .lightbox-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.92);
+            z-index: 10000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(12px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 20px;
+        }
+
+        .lightbox-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .lightbox-frame {
+            position: relative;
+            background: #0a0a0f;
+            border: 2px solid rgba(212, 175, 55, 0.4);
+            padding: 10px;
+            border-radius: 20px;
+            box-shadow: 0 0 40px rgba(0,0,0,0.8), 0 0 20px rgba(212, 175, 55, 0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 80vw;
+            max-height: 90vh;
+        }
+
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 70vh;
+            border-radius: 12px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .lightbox-caption {
+            color: #fff;
+            margin: 15px 0 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
             text-align: center;
-            margin-top: 8px;
-            font-size: 0.85rem;
-            opacity: 0.8;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            padding: 0 5px;
+        }
+
+        /* Controls inside/around frame */
+        .close-lightbox {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            background: #ff4d4d;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            transition: 0.3s;
+            z-index: 10005;
+        }
+        .close-lightbox:hover { transform: scale(1.1) rotate(90deg); }
+
+        .lightbox-nav {
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            color: #fff;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 22px;
+            transition: 0.3s;
+            backdrop-filter: blur(5px);
+            flex-shrink: 0;
+        }
+        .lightbox-nav:hover {
+            background: #d4af37;
+            color: #000;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .lightbox-actions {
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+        .action-btn {
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid #d4af37;
+            color: #d4af37;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
+        .action-btn:hover {
+            background: #d4af37;
+            color: #000;
+        }
+
+        @media (max-width: 768px) {
+            .lightbox-wrapper { gap: 10px; }
+            .lightbox-nav { width: 40px; height: 40px; font-size: 16px; }
+            .lightbox-frame { max-width: 75vw; }
+            .close-lightbox { top: -15px; right: -15px; width: 35px; height: 35px; }
         }
     </style>
+    <script src="../js/site-header-component.js"></script>
 </head>
 <body class="category-page tools-sub-page">
-    <div class="nav-controls fixed-nav">
-        <a href="photos.html" class="back-btn">⬅️ العودة للمعرض</a>
-        <button id="settingsToggle" class="settings-gear" aria-label="Settings">
-            <i class="fa-solid fa-gear"></i>
-        </button>
-    </div>
-
-    <!-- Settings Pill (Shared across pages) -->
-    <div id="settingsPillContainer" class="settings-pill-container">
-        <div class="main-track">
-            <button class="pill-item" data-target="langSub" data-tooltip="Language">
-                <i class="fa-solid fa-earth-americas"></i>
-            </button>
-            <button class="pill-item" data-target="themeSub" data-tooltip="Theme">
-                <i class="fa-solid fa-palette"></i>
-            </button>
-            <button class="pill-item" data-target="toolsSub" data-tooltip="Tools">
-                <i class="fa-solid fa-toolbox"></i>
-            </button>
-            <button class="pill-item" data-target="contactSub" data-tooltip="Contact">
-                <i class="fa-solid fa-address-book"></i>
-            </button>
-        </div>
-        <div class="sub-menus-layer">
-            <div id="langSub" class="sub-pill">
-                <button onclick="setLanguage('ar')" class="sub-item">العربية</button>
-                <button onclick="setLanguage('en')" class="sub-item">English</button>
-            </div>
-            <div id="themeSub" class="sub-pill">
-                <button class="sub-item theme-btn" data-theme="default"><i class="fa-solid fa-moon"></i></button>
-                <button class="sub-item theme-btn" data-theme="light"><i class="fa-solid fa-sun"></i></button>
-                <button class="sub-item theme-btn" data-theme="dark"><i class="fa-solid fa-star"></i></button>
-                <div class="sub-item color-wrapper">
-                    <input type="color" id="accentColorPicker" value="#d4af37">
-                </div>
-            </div>
-            <div id="toolsSub" class="sub-pill">
-                <button id="luckyStrikeBtn" class="sub-item lucky-btn-sub">
-                    <i class="fa-solid fa-dice"></i>
-                </button>
-            </div>
-            <div id="contactSub" class="sub-pill social-pill">
-                <a href="#" class="sub-item"><i class="fa-brands fa-telegram"></i></a>
-                <a href="#" class="sub-item"><i class="fa-brands fa-whatsapp"></i></a>
-                <a href="#" class="sub-item"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#" class="sub-item"><i class="fa-brands fa-snapchat"></i></a>
-                <a href="#" class="sub-item"><i class="fa-brands fa-tiktok"></i></a>
-            </div>
-        </div>
-    </div>
+    <!-- Web Component: Site Header & Navigation -->
+    <site-header type="sub" back-url="photos.html"></site-header>
     
     <div class="container" style="margin-top: 80px;">
         <header style="text-align: center; margin-bottom: 50px;">
             <h1 id="categoryTitle" style="color: #d4af37; font-size: 2.5rem; text-shadow: 0 0 15px rgba(212, 175, 55, 0.3);">جاري التحميل...</h1>
         </header>
 
-        <div id="photosGrid" class="grid">
+        <div id="photosGrid" class="masonry-grid">
             <!-- Images dynamic load -->
+        </div>
+    </div>
+
+    <!-- New Lightbox Structure with Integrated Frame -->
+    <div id="lightbox" class="lightbox-modal">
+        <div class="lightbox-wrapper">
+            <!-- Right Nav (Previous) -->
+            <div class="lightbox-nav nav-prev" id="prevBtn" title="السابق">
+                <i class="fa-solid fa-chevron-right"></i>
+            </div>
+
+            <!-- Central Frame -->
+            <div class="lightbox-frame">
+                <span class="close-lightbox" id="closeLightbox" title="إغلاق">
+                    <i class="fa-solid fa-xmark"></i>
+                </span>
+                
+                <img src="" id="lightboxImg" class="lightbox-img">
+                
+                <div id="lightboxCaption" class="lightbox-caption"></div>
+                
+                <div class="lightbox-actions">
+                    <a href="#" id="downloadBtn" class="action-btn">
+                        <i class="fa-solid fa-download"></i>
+                        حفظ الصورة
+                    </a>
+                </div>
+            </div>
+
+            <!-- Left Nav (Next) -->
+            <div class="lightbox-nav nav-next" id="nextBtn" title="التالي">
+                <i class="fa-solid fa-chevron-left"></i>
+            </div>
         </div>
     </div>
 
@@ -143,24 +352,121 @@
             grid.innerHTML = '';
 
             if (data && data.length > 0) {
-                data.forEach(item => {
+                data.forEach((item, index) => {
                     const div = document.createElement('div');
                     div.className = 'full-photo-card';
+                    div.style.animationDelay = (index * 0.1) + 's';
+                    
                     div.innerHTML = `
-                        <img src="${item.image_url}" alt="${item.title}">
-                        <div class="photo-title">${item.title || 'بدون عنوان'}</div>
+                        <img src="${item.image_url}" alt="${item.title}" loading="lazy">
+                        <div class="photo-overlay">
+                            <h3 class="photo-title">${item.title || 'لوحة فنية'}</h3>
+                        </div>
                     `;
+
+                    div.onclick = () => openLightbox(index);
                     grid.appendChild(div);
                 });
+                
+                // Store data globally for navigation
+                window.currentCategoryData = data;
             } else {
                 grid.innerHTML = `
-                    <div style="grid-column: 1/-1; text-align: center; padding: 50px;">
-                        <p style="color:#d4af37; font-size: 1.2rem;">لا توجد صور في هذا القسم حالياً في قاعدة البيانات.</p>
-                        <p style="color:#fff; opacity:0.6;">تأكد من إضافة صور في Supabase بالقسم المسمى: <b>${category}</b></p>
+                    <div style="grid-column: 1/-1; text-align: center; padding: 80px 20px; background: rgba(255,255,255,0.02); border-radius: 20px; border: 1px dashed rgba(212, 175, 55, 0.2); margin: 20px;">
+                        <i class="fa-solid fa-images" style="font-size: 3rem; color: #d4af37; margin-bottom: 20px; opacity: 0.5;"></i>
+                        <h2 style="color: #d4af37; font-size: 1.5rem; margin-bottom: 10px; font-family: 'Cairo', sans-serif;">لم يتم إضافة أي صور بعد</h2>
+                        <p style="color: #fff; font-size: 1.1rem; opacity: 0.8; line-height: 1.8;">
+                            سيتم إضافة الصور قريباً ....<br>
+                            شكراً لزيارتك
+                        </p>
                     </div>`;
             }
         }
+
+        // Lightbox Logic
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxCaption = document.getElementById('lightboxCaption');
+        const closeBtn = document.getElementById('closeLightbox');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const lightboxFrame = document.querySelector('.lightbox-frame');
+
+        let currentIndex = 0;
+
+        function openLightbox(index) {
+            currentIndex = index;
+            const item = window.currentCategoryData[currentIndex];
+            updateLightbox(item);
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Stop scrolling
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = ''; // Re-enable scrolling
+        }
+
+        function updateLightbox(item) {
+            lightboxImg.src = item.image_url;
+            lightboxCaption.innerText = item.title || 'لوحة فنية - معرض مرادو';
+            
+            // Set download link
+            downloadBtn.onclick = (e) => {
+                e.preventDefault();
+                handleDownload(item.image_url, item.title || 'murado-photo');
+            };
+        }
+
+        async function handleDownload(url, title) {
+            try {
+                const response = await fetch(url);
+                const blob = await response.blob();
+                const blobUrl = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = blobUrl;
+                a.download = `${title}.jpg`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(blobUrl);
+            } catch (err) {
+                window.open(url, '_blank');
+            }
+        }
+
+        function navigate(direction) {
+            currentIndex += direction;
+            if (currentIndex < 0) currentIndex = window.currentCategoryData.length - 1;
+            if (currentIndex >= window.currentCategoryData.length) currentIndex = 0;
+            updateLightbox(window.currentCategoryData[currentIndex]);
+        }
+
+        // Event Listeners
+        prevBtn.addEventListener('click', (e) => { e.stopPropagation(); navigate(-1); }); 
+        nextBtn.addEventListener('click', (e) => { e.stopPropagation(); navigate(1); });
+        closeBtn.addEventListener('click', (e) => { e.stopPropagation(); closeLightbox(); });
+
+        // Close on background click (anywhere except the frame and nav buttons)
+        lightbox.addEventListener('click', (e) => {
+            if (!lightboxFrame.contains(e.target) && !prevBtn.contains(e.target) && !nextBtn.contains(e.target)) {
+                closeLightbox();
+            }
+        });
+
+        // Keyboard Support
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowRight') navigate(-1); // Match RTL behavior
+            if (e.key === 'ArrowLeft') navigate(1);
+        });
+
         window.onload = loadCategory;
     </script>
 </body>
 </html>
+
+

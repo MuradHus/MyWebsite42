@@ -4,6 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>مرادو - Murado</title>
+    <meta name="description" content="عالم مرادو المدهش - أدوات هندسية، ألعاب، معرض صور، ومقالات تقنية متنوعة. اكتشف عالماً من الإبداع والابتكار.">
+    <meta name="keywords" content="مرادو, Murado, أدوات هندسية, ألعاب أونلاين, معرض صور, تقنية, ذكاء اصطناعي">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://murado.net/"> <!-- قم بتغييره للرابط الفعلي لاحقاً -->
+    <meta property="og:title" content="مرادو - Murado">
+    <meta property="og:description" content="عالم مرادو المدهش - أدوات هندسية، ألعاب، معرض صور، ومقالات تقنية متنوعة.">
+    <meta property="og:image" content="images/logo.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="مرادو - Murado">
+    <meta property="twitter:description" content="عالم مرادو المدهش - أدوات هندسية، ألعاب، معرض صور، ومقالات تقنية متنوعة.">
+    <meta property="twitter:image" content="images/logo.png">
     <!-- Google Fonts: Cairo for Arabic text -->
     <link
       href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap"
@@ -12,22 +27,12 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/clock.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/site-header-component.js"></script>
 </head>
 <body class="dark-mode">
 
-    <!-- Fixed Navigation -->
-    <div class="nav-controls fixed-nav">
-        <!-- Clock Mini removed as requested -->
-        <div></div>
-        
-        <!-- Left Side: Date + Gear (Fixed positions via RTL) -->
-        <div class="nav-left-group" style="display: flex; align-items: center; gap: 10px; pointer-events: auto;">
-            <div id="dateContainer" class="date-container"></div>
-            <button id="settingsToggle" class="settings-gear" aria-label="Settings">
-                <i class="fa-solid fa-gear"></i>
-            </button>
-        </div>
-    </div>
+    <!-- Web Component: Site Header & Navigation -->
+    <site-header type="main"></site-header>
 
     <!-- Top Status Bar -->
     <div id="topStatusBar" class="status-bar" style="background: transparent; border: none; backdrop-filter: none;">
@@ -212,66 +217,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
     <script src="js/clock.js"></script>
     
-
-    <div id="settingsPillContainer" class="settings-pill-container">
-        <!-- Main Vertical Track -->
-        <div class="main-track">
-            <!-- Items -->
-            <button class="pill-item" data-target="langSub" data-tooltip="Language">
-                <i class="fa-solid fa-earth-americas"></i>
-            </button>
-            <button class="pill-item" data-target="themeSub" data-tooltip="Theme">
-                <i class="fa-solid fa-palette"></i>
-            </button>
-            <button class="pill-item" data-target="toolsSub" data-tooltip="Tools">
-                <i class="fa-solid fa-toolbox"></i>
-            </button>
-            <button class="pill-item" data-target="contactSub" data-tooltip="Contact">
-                <i class="fa-solid fa-address-book"></i>
-            </button>
-        </div>
-
-        <!-- Sub Menus (Pop out to right) -->
-        <div class="sub-menus-layer">
-            <!-- Language Sub -->
-            <div id="langSub" class="sub-pill">
-                <button onclick="setLanguage('ar')" class="sub-item">العربية</button>
-                <button onclick="setLanguage('en')" class="sub-item">English</button>
-                <button onclick="setLanguage('default')" class="sub-item">Auto</button>
-            </div>
-
-            <!-- Theme Sub -->
-            <div id="themeSub" class="sub-pill">
-                <button class="sub-item theme-btn" data-theme="default"><i class="fa-solid fa-moon"></i></button>
-                <button class="sub-item theme-btn" data-theme="light"><i class="fa-solid fa-sun"></i></button>
-                <button class="sub-item theme-btn" data-theme="dark"><i class="fa-solid fa-star"></i></button>
-                <div class="sub-item color-wrapper">
-                    <input type="color" id="accentColorPicker" value="#d4af37">
-                </div>
-            </div>
-
-            <!-- Tools Sub -->
-            <div id="toolsSub" class="sub-pill">
-                <button id="luckyStrikeBtn" class="sub-item lucky-btn-sub">
-                    <i class="fa-solid fa-dice"></i>
-                </button>
-            </div>
-
-            <!-- Contact Sub -->
-            <div id="contactSub" class="sub-pill social-pill">
-                <a href="#" class="sub-item"><i class="fa-brands fa-telegram"></i></a>
-                <a href="#" class="sub-item"><i class="fa-brands fa-whatsapp"></i></a>
-                <a href="#" class="sub-item"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#" class="sub-item"><i class="fa-brands fa-snapchat"></i></a>
-                <a href="#" class="sub-item"><i class="fa-brands fa-tiktok"></i></a>
-            </div>
-        </div>
-    </div>
-    
     <!-- Main Scripts -->
     <script src="js/script.js"></script>
-    
-    
     <script src="js/theme-manager.js"></script>
     <script src="js/gemini-service.js"></script>
     <script src="js/sidebar.js"></script>

@@ -1,71 +1,33 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>خلفيات Mesh المتدرجة</title>
+    <title>مولد خلفيات Mesh المتدرجة - مرادو</title>
+    <meta name="description" content="أنشئ خلفيات فنية متدرجة (Mesh Gradients) بجودة 4K. تحكم بالألوان والتموجات لابتكار خلفيات فريدة لمشاريعك أو جهازك.">
+    <meta name="keywords" content="Mesh Gradient, خلفيات متدرجة, تصميم خلفيات, ألوان متداخلة, مرادو">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="مولد خلفيات Mesh المتدرجة - مرادو">
+    <meta property="og:description" content="ابتكر خلفيات عصرية وأنيقة عبر دمج الألوان بطريقة الـ Mesh المذهلة.">
+    <meta property="og:image" content="../images/logo.png">
+    <meta property="og:type" content="website">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/mesh-gradient.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="../js/site-header-component.js"></script>
 </head>
 <body class="dark-mode tools-sub-page">
     
+    <!-- Web Component: Site Header & Navigation -->
+    <site-header type="sub" back-url="designs.html"></site-header>
+    
     <header class="header">
         <div class="container">
-            <div class="nav-controls fixed-nav">
-                <a href="designs.html" class="back-btn">🔙 قسم التصميم</a>
-                <button id="settingsToggle" class="settings-gear" aria-label="Settings">
-                    <i class="fa-solid fa-gear"></i>
-                </button>
-            </div>
             <h1>مُولّد خلفيات Mesh</h1>
         </div>
     </header>
-
-    <!-- Settings Pill (Shared across pages) -->
-    <div id="settingsPillContainer" class="settings-pill-container">
-        <div class="main-track">
-            <button class="pill-item" data-target="langSub" data-tooltip="Language">
-                <i class="fa-solid fa-earth-americas"></i>
-            </button>
-            <button class="pill-item" data-target="themeSub" data-tooltip="Theme">
-                <i class="fa-solid fa-palette"></i>
-            </button>
-            <button class="pill-item" data-target="toolsSub" data-tooltip="Tools">
-                <i class="fa-solid fa-toolbox"></i>
-            </button>
-            <button class="pill-item" data-target="contactSub" data-tooltip="Contact">
-                <i class="fa-solid fa-address-book"></i>
-            </button>
-        </div>
-        <div class="sub-menus-layer">
-            <div id="langSub" class="sub-pill">
-                <button onclick="setLanguage('ar')" class="sub-item">العربية</button>
-                <button onclick="setLanguage('en')" class="sub-item">English</button>
-            </div>
-            <div id="themeSub" class="sub-pill">
-                <button class="sub-item theme-btn" data-theme="default"><i class="fa-solid fa-moon"></i></button>
-                <button class="sub-item theme-btn" data-theme="light"><i class="fa-solid fa-sun"></i></button>
-                <button class="sub-item theme-btn" data-theme="dark"><i class="fa-solid fa-star"></i></button>
-                <div class="sub-item color-wrapper">
-                    <input type="color" id="accentColorPicker" value="#d4af37">
-                </div>
-            </div>
-            <div id="toolsSub" class="sub-pill">
-                <button id="luckyStrikeBtn" class="sub-item lucky-btn-sub">
-                    <i class="fa-solid fa-dice"></i>
-                </button>
-            </div>
-            <div id="contactSub" class="sub-pill social-pill">
-                <a href="#" class="sub-item"><i class="fa-brands fa-telegram"></i></a>
-                <a href="#" class="sub-item"><i class="fa-brands fa-whatsapp"></i></a>
-                <a href="#" class="sub-item"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#" class="sub-item"><i class="fa-brands fa-snapchat"></i></a>
-                <a href="#" class="sub-item"><i class="fa-brands fa-tiktok"></i></a>
-            </div>
-        </div>
-    </div>
 
     <main class="workspace">
         
@@ -111,3 +73,6 @@
     <script src="../js/mesh-gradient.js"></script>
 </body>
 </html>
+
+
+
